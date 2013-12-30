@@ -1,0 +1,12 @@
+*.aux
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.snm
+*.toc
+\#*
+\.\#*
+*~
+r/r_slides.pdf
+r/r_slides.tex
