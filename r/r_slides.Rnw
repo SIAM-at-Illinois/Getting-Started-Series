@@ -26,10 +26,17 @@
 % - (2) quick example
 
 \section{\R Basics}
+\begin{frame}{What is \R?}
+  \begin{itemize}
+  \item A language for statistical analysis (data manipulation, modeling, visualization).
+   \item \texttt{S} started at Bell Labs in 1970s and 1980s.
+   \item GNU \R is an open source port of the language.
+   \item Currently in version \texttt{3.0.x}.
+  \end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]{A twisted family tree}
  \begin{itemize}
-   \item \texttt{S} started at Bell Labs in 1970s and 1980s.
    \item Mostly \texttt{C} syntax (\texttt{for} loops, curly braces).
 <<>>=
 a <- 0
@@ -50,6 +57,7 @@ f <- function(i, k) { i * k / i^k }
 g <- function(i) { function(k) { f(i, k) }}
 sapply(c(1,2,3,4,5), g(3))
 @ 
+   \item Multiple object systems (S3, S4, reference)
  \end{itemize}
 \end{frame}
 % - (10) basic syntax, loading data, plotting
@@ -128,15 +136,55 @@ m[1:2, 2:3]
 \end{frame}
 
 \begin{frame}[fragile]{Data Frames}
-  The \texttt{data.frame} class holds multiple modes.
-      \begin{itemize}
-        \item Can use subscripting notation, also \texttt{\$} operator to get specific columns as vectors:
-      \end{itemize}
+  The \texttt{data.frame} class holds multiple modes, \texttt{\$} operator to get specific columns as vectors.
 <<>>=
 df <- data.frame(nums = 1:10, letters = letters[1:10])
 df[1:3, ]
 df$letters
-@       
+@      
+\end{frame}
+
+\begin{frame}[fragile]{Formulas}
+  A common interface is a formula with a left and right hand side:
+<<results = hide>>=
+y ~ x1 + x2 + x3 * x4 + log(x5)
+@
+  \begin{itemize}
+    \item Used in many model fitting and plotting routines.
+    \item Short hand notation for interactions (\texttt{:} and \texttt{*}).
+    \item Many functions permitted.
+    \item Can pull variables from the enviroment, but usally better to combine with a \texttt{data = mydata} argument.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Functions: Creating and Passing}
+  Functions are created like regular variables and can be treated like any other object:
+<<eval = FALSE>>=
+withfile <- function(fname, f) {
+  sink(fname)
+  f()
+  sink()
+}
+
+withfile("myoutput.txt", function() { 
+  print("hi")
+  print("bye") 
+})
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Functions: Arguments}
+  Arguments can be named and given default values. Special \texttt{...} argument captures any other passed arguments.
+<<>>=
+f <- function(a, b, c = 0.5, ...) {
+  round(a:b * c, ...)
+}
+@ 
+<<>>=
+f(1, 3)
+f(b = 3, a = 1)
+f(c = 1/3, 1 , 3, digits = 3)
+@ 
 \end{frame}
 
 \section{Packages}
