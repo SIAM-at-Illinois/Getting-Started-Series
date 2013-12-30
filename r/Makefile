@@ -38,7 +38,7 @@ Sweave = $(RCMD) CMD Sweave
 	latexmk -pdf $(<F)
 
 ### Default task
-all: paper.pdf poster.pdf
+all: r_slides.pdf
 
 interactive:
 	R_LIBS=$(LIBS) R --quiet --no-save
@@ -47,8 +47,6 @@ interactive:
 ################################################################################
 # Installing dependencies
 ################################################################################
-
-INSTALLLIB = $(RCMD) CMD INSTALL --no-multiarch --no-docs --library=$(LIBS)
 
 installpkg = mkdir -p $(LIBS) ; R_LIBS=$(LIBS) R --vanilla -e "install.packages('$(1)', repos = 'http://streaming.stat.iastate.edu/CRAN/')" ; date > $(LIBS)/$(1)/INSTALLED
 
