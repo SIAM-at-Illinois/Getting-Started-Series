@@ -57,3 +57,13 @@ $(LIBS)/xtable/INSTALLED:
 # Presentation
 ################################################################################
 
+cran.html:
+	curl http://cran.r-project.org/web/packages/available_packages_by_name.html > cran.html
+
+crancounts.tex: cran.html
+	sed -n '/<tr valign="top">/p' cran.html | wc -l > crancounts.tex
+	echo " packages as of " >> crancounts.tex
+	date "+%Y-%m-%d" >> crancounts.tex
+
+r_slides.pdf: crancounts.tex
+

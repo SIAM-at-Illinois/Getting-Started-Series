@@ -2,6 +2,7 @@
 
 \usepackage{beamerthemesplit} % TODO: use different beamer theme
 \usepackage{xspace}
+\usepackage{hyperref}
 
 \newcommand{\R}{\texttt{R}\xspace}
 
@@ -188,6 +189,18 @@ f(c = 1/3, 1 , 3, digits = 3)
 \end{frame}
 
 \section{Packages}
+
+\begin{frame}{CRAN}
+  The \href{http://cran.r-project.org/}{Comprehensive \R Archive Network}(CRAN) is a repository for community packages.
+  \begin{itemize}
+    \item \input{crancounts}
+    \item Easy to use with \texttt{install.packages("packageName")}
+    \item Packages for different statistical techniques, plotting/graphics, parsing, development tools.
+    \item Pre-built binaries for Windows and OS X. Source builds for other platforms.
+  \end{itemize}
+  
+\end{frame}
+
 % - (10) installing packages, recommended packages
 
 \section{Using \R}
