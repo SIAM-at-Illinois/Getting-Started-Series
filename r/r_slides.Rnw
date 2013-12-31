@@ -14,15 +14,6 @@
 
 \frame{\titlepage}
 
-\frame
-{
-  \frametitle{First Slide}
-
-  \begin{itemize}
-  \item ...
-  \end{itemize}
-}
-
 \section{Example: Comparing Two Algorithms}
 % - (2) quick example
 
@@ -199,6 +190,20 @@ f(c = 1/3, 1 , 3, digits = 3)
     \item Pre-built binaries for Windows and OS X. Source builds for other platforms.
   \end{itemize}
   
+\end{frame}
+
+\begin{frame}[fragile]{Installing and Using Packages}
+<<eval = FALSE>>=
+install.packages("e1071")
+@ 
+  
+<<>>=
+library(e1071)
+data(Titanic)
+m <- naiveBayes(Survived ~ ., data = Titanic)
+me <- list(class = "3rd", Sex = "Male", "Age" = "Adult")
+predict(m, newdata = me)
+@ 
 \end{frame}
 
 % - (10) installing packages, recommended packages

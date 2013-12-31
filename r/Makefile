@@ -12,7 +12,7 @@
 
 # Any libraries will be installed locally, and R/Sweave will run using that path.
 LIBS = .libraries
-RCMD = R_LIBS=../$(LIBS) R --vanilla
+RCMD = R_LIBS=$(LIBS) R --vanilla
 RDO  = $(RCMD) -f
 Sweave = $(RCMD) CMD Sweave
 
@@ -53,6 +53,9 @@ installpkg = mkdir -p $(LIBS) ; R_LIBS=$(LIBS) R --vanilla -e "install.packages(
 $(LIBS)/xtable/INSTALLED:
 	$(call installpkg,xtable)
 
+$(LIBS)/e1071/INSTALLED:
+	$(call installpkg,e1071)
+
 ################################################################################
 # Presentation
 ################################################################################
@@ -65,5 +68,5 @@ crancounts.tex: cran.html
 	echo " packages as of " >> crancounts.tex
 	date "+%Y-%m-%d" >> crancounts.tex
 
-r_slides.pdf: crancounts.tex
+r_slides.pdf: $(LIBS)/xtable/INSTALLED $(LIBS)/e1071/INSTALLED crancounts.tex
 
