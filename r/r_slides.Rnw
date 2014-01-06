@@ -3,6 +3,7 @@
 \usepackage{beamerthemesplit} % TODO: use different beamer theme
 \usepackage{xspace}
 \usepackage{hyperref}
+\usepackage{graphicx}
 
 \newcommand{\R}{\texttt{R}\xspace}
 
@@ -292,7 +293,15 @@ abline(a = cs[1],
 @
 \end{columns}
 \end{frame}
- 
+
+\begin{frame}{More examples}
+  \begin{figure}
+  \centering
+  \includegraphics{rgraphgallery.png}
+  \caption{Mini examples from \href{http://web.archive.org/web/20130113002105/http://gallery.r-enthusiasts.com/}{R Graphics Gallery}}
+  \end{figure}
+\end{frame}
+
   
 \section{Packages}
 
