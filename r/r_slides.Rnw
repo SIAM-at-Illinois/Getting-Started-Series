@@ -49,8 +49,6 @@ b
   \end{itemize}
 \end{frame}
 
-
-
 \begin{frame}[fragile]{Objects}
   \begin{itemize}
     \item Objects have a \emph{class} and a \emph{mode}
@@ -70,16 +68,17 @@ mode(m)
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Exercise: Variables}
+\begin{frame}{Exercise: Variables}
   \begin{itemize}
     \item Create a vector with three numbers (use the \texttt{c} function).
     \item Create a vector with six numbers.
     \item Add them together. What happens?
+    \item \pause \texttt{R} will ``recycle'' vectors to the length of the longer one.
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{A twisted family tree}
-   Mostly \texttt{C} syntax (\texttt{for} loops, curly braces).
+\begin{frame}[fragile]{Loops}
+  The usual \texttt{for} and \texttt{while} constructs exist: 
 <<>>=
 a <- 0
 
@@ -89,24 +88,51 @@ for (i in 1:5) {
 
 print(a)
 @ 
+The \texttt{*apply} family of functions perform maps over vectors:
+<<>>=
+sapply(c(1,2,3,4), function(x) { x * x })
+@ 
 \end{frame}
 
-\begin{frame}[fragile]{Vectors}
-  \begin{itemize}
-   \item Like APL, many operations on vectors.
+\begin{frame}[fragile]{Vectorization}
+  
+Many explicit loops can be avoided with ``vectorization'':
 <<>>=
-c(1,2,3) * c(4,5,6)
+square <- function(x) { x * x }
+square(c(1,2,3))
 @ 
-   \item Functional programming constructs from Scheme.
-<<>>=
-f <- function(i, k) { i * k / i^k }
-g <- function(i) { function(k) { f(i, k) }}
-sapply(c(1,2,3,4,5), g(3))
-@ 
-   \item Multiple object systems (S3, S4, reference)
- \end{itemize}
+There are some built in functions to ``vectorize'' other functions.
 \end{frame}
-% - (10) basic syntax, loading data, plotting
+
+\begin{frame}[fragile]{Functions: Creating and Passing}
+  Functions are created like regular variables and can be treated like any other object:
+<<eval = FALSE>>=
+withfile <- function(fname, f) {
+  sink(fname)
+  f()
+  sink()
+}
+
+withfile("myoutput.txt", function() { 
+  print("hi")
+  print("bye") 
+})
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Functions: Arguments}
+  Arguments can be named and given default values. Special \texttt{...} argument captures any other passed arguments.
+<<>>=
+f <- function(a, b, c = 0.5, ...) {
+  round(a:b * c, ...)
+}
+@ 
+<<>>=
+f(1, 3)
+f(b = 3, a = 1)
+f(c = 1/3, 1 , 3, digits = 3)
+@ 
+\end{frame}
 
 \begin{frame}[fragile]{Booleans and Comparisons}
   \begin{itemize}
@@ -116,17 +142,56 @@ c(TRUE && TRUE, TRUE && FALSE, FALSE || TRUE)
 @
     \item Single boolean \texttt{if-else} statements; \texttt{switch} function
 
-    \item Elementwise boolean operations:
+    \item Elementwise boolean operations \texttt{|} and \texttt{\&}:
 <<>>=
 c(TRUE, TRUE, FALSE) | c(FALSE, TRUE, FALSE)
-c(TRUE, TRUE, FALSE) & c(FALSE, TRUE, FALSE)
 @ 
      \item Elementwise comparisons:
 <<>>=
 ifelse(c(1,2,3,4,5) %% 2 == 0, "even", "odd")
 @ 
-  
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise: Function to compute multiples}
+From Project Euler Problem 1:
+\begin{quote}
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+\end{quote}
+
+\begin{itemize}
+  \item Write a function \texttt{isThreeOrFive} that returns a boolean (hint: \texttt{\%\%} is modulo).
+  \item Apply the function to all values from 1 to 1000 (hint: \texttt{1:1000}).
+  \item Use the \texttt{sum} function to answer the question.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example solutions}
+  \begin{itemize}
+    \item Vectorization:
+<<>>=
+isThreeOrFive <- function(x) { 
+  # by using elementwise operation, this is vectorized
+  (x %% 3 == 0) | (x %% 5 == 0) 
+}
+                                                                        
+sum((1:999)[isThreeOrFive(1:999)])
+@ 
+    \item Explicit looping:
+<<>>=
+s <- 0
+for (x in 1:999) {
+  if (isThreeOrFive(x)) s <- s + x
+}
+s
+@ 
+    \item Functional one liner:
+<<>>=
+sum(Filter(x = 1:1000, f = isThreeOrFive))
+@ 
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Missing Values}
@@ -181,37 +246,6 @@ y ~ x1 + x2 + x3 * x4 + log(x5)
     \item Can pull variables from the enviroment, but usally better to combine with a \texttt{data = mydata} argument.
    \end{itemize}
 \end{frame}
-
-\begin{frame}[fragile]{Functions: Creating and Passing}
-  Functions are created like regular variables and can be treated like any other object:
-<<eval = FALSE>>=
-withfile <- function(fname, f) {
-  sink(fname)
-  f()
-  sink()
-}
-
-withfile("myoutput.txt", function() { 
-  print("hi")
-  print("bye") 
-})
-@ 
-\end{frame}
-
-\begin{frame}[fragile]{Functions: Arguments}
-  Arguments can be named and given default values. Special \texttt{...} argument captures any other passed arguments.
-<<>>=
-f <- function(a, b, c = 0.5, ...) {
-  round(a:b * c, ...)
-}
-@ 
-<<>>=
-f(1, 3)
-f(b = 3, a = 1)
-f(c = 1/3, 1 , 3, digits = 3)
-@ 
-\end{frame}
-
 \section{Packages}
 
 \begin{frame}{CRAN}
