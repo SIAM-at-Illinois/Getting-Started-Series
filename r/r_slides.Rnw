@@ -24,12 +24,62 @@
    \item \texttt{S} started at Bell Labs in 1970s and 1980s.
    \item GNU \R is an open source port of the language.
    \item Currently in version \texttt{3.0.x}.
+   \item Interpreted language with bindings to C/C++, Fortran, other languages
+   \item Available for Windows, Mac, UNIXes; extensive package repository
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Variables}
+ \begin{itemize}
+   \item Variables can be assigned using either \texttt{<-} or \texttt{=}
+<<>>=
+a <- 7
+b = c(1, 2, 3, 4)
+@ 
+    \item The basic data type is a vector (with optional names)
+<<>>=
+is.vector(c(a = 3, foo = 1, 4, last123 = 1))
+is.vector(3)
+@ 
+  \item Assigning via special functions like \texttt{names<-}:
+<<>>=
+names(b) <- c("A", "B", "C", "D")
+b
+@ 
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Objects}
+  \begin{itemize}
+    \item Objects have a \emph{class} and a \emph{mode}
+<<>>=
+m <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 2)
+class(m)
+mode(m)
+@  
+    \item Usual suspects for modes:
+      \begin{itemize}
+        \item logical
+        \item numeric (integer, double, complex, factor)
+        \item character (strings)
+        \item raw
+        \item list
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise: Variables}
+  \begin{itemize}
+    \item Create a vector with three numbers (use the \texttt{c} function).
+    \item Create a vector with six numbers.
+    \item Add them together. What happens?
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{A twisted family tree}
- \begin{itemize}
-   \item Mostly \texttt{C} syntax (\texttt{for} loops, curly braces).
+   Mostly \texttt{C} syntax (\texttt{for} loops, curly braces).
 <<>>=
 a <- 0
 
@@ -39,6 +89,10 @@ for (i in 1:5) {
 
 print(a)
 @ 
+\end{frame}
+
+\begin{frame}[fragile]{Vectors}
+  \begin{itemize}
    \item Like APL, many operations on vectors.
 <<>>=
 c(1,2,3) * c(4,5,6)
@@ -53,27 +107,6 @@ sapply(c(1,2,3,4,5), g(3))
  \end{itemize}
 \end{frame}
 % - (10) basic syntax, loading data, plotting
-
-\begin{frame}[fragile]{Variables}
- \begin{itemize}
-   \item Variables can be assigned using either \texttt{<-} or \texttt{=}
-<<>>=
-a <- 7
-b = c(1, 2, 3, 4)
-@ 
-    \item The basic data type is a vector
-<<>>=
-is.vector(c(3,1,4,1))
-is.vector(3)
-@ 
-    \item Variables have a \emph{class} and a \emph{mode}
-<<>>=
-m <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 2)
-class(m)
-mode(m)
-@  
-  \end{itemize}
-\end{frame}
 
 \begin{frame}[fragile]{Booleans and Comparisons}
   \begin{itemize}
