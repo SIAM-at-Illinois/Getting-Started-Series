@@ -246,6 +246,54 @@ y ~ x1 + x2 + x3 * x4 + log(x5)
     \item Can pull variables from the enviroment, but usally better to combine with a \texttt{data = mydata} argument.
    \end{itemize}
 \end{frame}
+
+\section{Plotting}
+
+\begin{frame}{Plotting Basics}
+  \begin{itemize}
+    \item Many objects have \texttt{plot} methods.
+    \item These can be combined with other plotting primitives to create nice graphics.
+    \item Output can be viewed interatively or saved as PDF, SVG, PNG, JPG, and others.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example: Building a linear model}
+<<>>=
+library(MASS)
+randoms <- as.data.frame(
+    mvrnorm(n = 100, 
+            mu = c(1,2), 
+            Sigma = matrix(c(1, 0.5, 0.5, 1),
+                           nrow = 2)))
+colnames(randoms) <- c("x", "y")
+randoms$w <- (randoms$x + rnorm(100)) > 0
+model <- lm(y ~ x, data = randoms)
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Example: Plotting regression model}
+% \setkeys{Gin}{width=0.8\textwidth}
+\begin{columns}[c]
+  \column{0.4\textwidth}
+<<regModelPlot, fig=TRUE, echo = FALSE>>=
+plot(y ~ x,
+     data = randoms,
+     col = ifelse(randoms$w == 1,
+                  "red",
+                  "blue"),
+     main = "Fancy Plot")
+cs <- model$coefficients
+abline(a = cs[1], 
+       b = cs[2])
+@
+  \column{0.6\textwidth}
+<<>>=
+<<regModelPlot>>
+@
+\end{columns}
+\end{frame}
+ 
+  
 \section{Packages}
 
 \begin{frame}{CRAN}
@@ -271,6 +319,16 @@ m <- naiveBayes(Survived ~ ., data = Titanic)
 me <- list(class = "3rd", Sex = "Male", "Age" = "Adult")
 predict(m, newdata = me)
 @ 
+\end{frame}
+
+\begin{frame}{Some recommend packages}
+  \begin{itemize}
+    \item \texttt{caret}: Machine learning meta package
+    \item \texttt{lattice} and \texttt{ggplot}: Advance plotting packages.
+    \item \texttt{xtable}: Formats tables as \LaTeX and HTML
+    \item \texttt{Rcpp}: Simplifies interfacing with C/C++.
+    \item \texttt{plyr}: Data manipulation routines.
+  \end{itemize}
 \end{frame}
 
 % - (10) installing packages, recommended packages
