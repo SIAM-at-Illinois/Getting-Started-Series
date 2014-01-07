@@ -409,6 +409,27 @@ c(1, 2, 3) + c(4, 5, 6)
   \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Web}
+  \begin{itemize}
+    \item \url{r-project.org}: downloads, introductory guides, packages
+    \item Searching the web for ``R'' is an extreme frustration (get used to it)
+    \item \href{http://www.burns-stat.com/pages/Tutor/R_inferno.pdf}{R Inferno}: common pitfalls and workarounds
+    \item Mailing lists: r-help, r-devel
+    \item \url{stackoverflow.com} and \url{stats.stackexchange.com}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Editors}
+  \begin{itemize}
+    \item \R for Windows and OS X ship with REPL and editor
+    \item \texttt{Rcmdr} and \texttt{tinR} attempt to add a full GUI
+    \item emacs: \emph{Emacs Speaks Statistics} is a set of modes, including a REPL and Sweave interaction
+    \item vim: syntax highlighting, I was never able to get interactive stuff to work (I use emacs + EVIL + ESS)
+    \item RStudio: commerical IDE freeware; available as Java app and in-browser interface
+  \end{itemize}
+\end{frame}
+
 \section{Data Competition}
 % - (15) Data competition
 
