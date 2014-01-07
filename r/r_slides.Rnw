@@ -398,7 +398,16 @@ c(1, 2, 3) + c(4, 5, 6)
 % - (10) Using R in a larger project, reproducible research
 
 \section{Other Resources}
-% - (5) Other resources
+
+\begin{frame}{Books}
+  \begin{itemize}
+   \item \emph{The Art of R Programming} by Norman Matloff
+   \item \emph{Software for Data Analysis: Programming with R} by John Chambers
+   \item \emph{Reproducible Research in R and RStudio} by Christopher Gandrud
+   \item O'Reilly \R cookbooks
+   \item Many books that teach specific statistical techniques with \R demonstrations
+  \end{itemize}
+\end{frame}
 
 \section{Data Competition}
 % - (15) Data competition
