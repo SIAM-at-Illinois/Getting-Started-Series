@@ -417,6 +417,7 @@ c(1, 2, 3) + c(4, 5, 6)
     \item \href{http://www.burns-stat.com/pages/Tutor/R_inferno.pdf}{R Inferno}: common pitfalls and workarounds
     \item Mailing lists: r-help, r-devel
     \item \url{stackoverflow.com} and \url{stats.stackexchange.com}
+    \item \url{r-bloggers.com}
   \end{itemize}
 \end{frame}
 
