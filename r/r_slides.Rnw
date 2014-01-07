@@ -368,12 +368,31 @@ c(1, 2, 3) + c(4, 5, 6)
 \end{columns}
 \end{frame}
 
-\begin{frame}{Using R to Create Artifacts}
-  
+\begin{frame}[fragile]{Using R to Create Artifacts}
+ \begin{itemize}
+   \item Projects with multiple languages, phases
+   \item We use \texttt{make} to map out dependencies and run \R
+   \item The \texttt{save} function serializes most data types.
+   \item Typical workflow:
+     \begin{itemize}
+       \item Load data (usually a \texttt{.csv} or similar)
+       \item Process data using \R and save \texttt{.rda} file
+       \item Analysis phases consume \texttt{data.rda} and produce more \texttt{.rda} files
+       \item Figures, tables, etc. rely on these items and are built via \texttt{Makefile}
+       \item Output documents (\texttt{paper.pdf}, \texttt{presentation.pdf}) depend on entire collection.
+     \end{itemize}
+ \end{itemize}
 \end{frame}
 
 \begin{frame}{Interfacing R with Other Languages}
-  
+  \begin{itemize}
+    \item \R is largely built on C and Fortran and interfacing is pretty straight forward.
+    \item \texttt{Rcpp} and \texttt{inline} packages make it even easier (including compiling writing C++ as a string)
+    \item \texttt{RInside} is a package to allow calling \R from C++
+    \item \texttt{RPy2}, \texttt{RJava}, \texttt{RinRuby}, \texttt{statistics::R}, probably others
+    \item \texttt{foreign} library can read many formats
+    \item \texttt{RSQLite}: interact with \texttt{sqlite3} files, bindings for most languages
+  \end{itemize}
 \end{frame}
 
 % - (10) Using R in a larger project, reproducible research
