@@ -343,6 +343,39 @@ predict(m, newdata = me)
 % - (10) installing packages, recommended packages
 
 \section{Using \R}
+
+\begin{frame}[fragile]{Sweave}
+  \begin{itemize}
+    \item Embed \R in \LaTeX (e.g. these slides)
+    \item Chunks are evaluated and (optionally) output TeX.
+    \item Figures can be generated as well
+  \end{itemize}
+\begin{columns}[t]
+  \column{0.5\textwidth}
+\texttt{file.Rnw}
+\begin{verbatim}
+ <<chunkname, eval = TRUE>>=
+ c(1, 2, 3) + c(4, 5, 6)
+ @
+\end{verbatim}
+  \column{0.5\textwidth}
+\texttt{file.tex}
+\begin{verbatim}
+<<chunkname, eval = TRUE>>=
+c(1, 2, 3) + c(4, 5, 6)
+@
+\end{verbatim}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Using R to Create Artifacts}
+  
+\end{frame}
+
+\begin{frame}{Interfacing R with Other Languages}
+  
+\end{frame}
+
 % - (10) Using R in a larger project, reproducible research
 
 \section{Other Resources}
