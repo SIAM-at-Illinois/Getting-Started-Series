@@ -68,5 +68,5 @@ crancounts.tex: cran.html
 	echo " packages as of " >> crancounts.tex
 	date "+%Y-%m-%d" >> crancounts.tex
 
-r_slides.pdf: $(LIBS)/xtable/INSTALLED $(LIBS)/e1071/INSTALLED crancounts.tex
+r_slides.pdf: $(LIBS)/xtable/INSTALLED $(LIBS)/e1071/INSTALLED crancounts.tex rgraphgallery.png
 
