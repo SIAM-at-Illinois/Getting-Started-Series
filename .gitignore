@@ -1,0 +1,17 @@
+*.aux
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+\#*
+\.\#*
+*~
+r/r_slides.pdf
+r/r_slides.tex
+r/cran.html
+r/crancounts.tex
+r/.libraries
+r/*.pdf

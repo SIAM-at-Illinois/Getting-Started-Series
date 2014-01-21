@@ -1,0 +1,478 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit} % TODO: use different beamer theme
+\usepackage{xspace}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\newcommand{\R}{\texttt{R}\xspace}
+
+\title{SIAM: Getting Started with R}
+\author{Mark M. Fredrickson}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Example: Comparing Two Algorithms}
+% - (2) quick example
+
+\section{\R Basics}
+\begin{frame}{What is \R?}
+  \begin{itemize}
+  \item A language for statistical analysis (data manipulation, modeling, visualization).
+   \item \texttt{S} started at Bell Labs in 1970s and 1980s.
+   \item GNU \R is an open source port of the language.
+   \item Currently in version \texttt{3.0.x}.
+   \item Interpreted language with bindings to C/C++, Fortran, other languages
+   \item Available for Windows, Mac, UNIXes; extensive package repository
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Variables}
+ \begin{itemize}
+   \item Variables can be assigned using either \texttt{<-} or \texttt{=}
+<<>>=
+a <- 7
+b = c(1, 2, 3, 4)
+@ 
+    \item The basic data type is a vector (with optional names)
+<<>>=
+is.vector(c(a = 3, foo = 1, 4, last123 = 1))
+is.vector(3)
+@ 
+  \item Assigning via special functions like \texttt{names<-}:
+<<>>=
+names(b) <- c("A", "B", "C", "D")
+b
+@ 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Objects}
+  \begin{itemize}
+    \item Objects have a \emph{class} and a \emph{mode}
+<<>>=
+m <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 2)
+class(m)
+mode(m)
+@  
+    \item Usual suspects for modes:
+      \begin{itemize}
+        \item logical
+        \item numeric (integer, double, complex, factor)
+        \item character (strings)
+        \item raw
+        \item list
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise: Variables}
+  \begin{itemize}
+    \item Create a vector with three numbers (use the \texttt{c} function).
+    \item Create a vector with six numbers.
+    \item Add them together. What happens?
+    \item \pause \texttt{R} will ``recycle'' vectors to the length of the longer one.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Loops}
+  The usual \texttt{for} and \texttt{while} constructs exist: 
+<<>>=
+a <- 0
+
+for (i in 1:5) {
+  a <- a + i
+}
+
+print(a)
+@ 
+The \texttt{*apply} family of functions perform maps over vectors:
+<<>>=
+sapply(c(1,2,3,4), function(x) { x * x })
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Vectorization}
+  
+Many explicit loops can be avoided with ``vectorization'':
+<<>>=
+square <- function(x) { x * x }
+square(c(1,2,3))
+@ 
+There are some built in functions to ``vectorize'' other functions.
+\end{frame}
+
+\begin{frame}[fragile]{Functions: Creating and Passing}
+  Functions are created like regular variables and can be treated like any other object:
+<<eval = FALSE>>=
+withfile <- function(fname, f) {
+  sink(fname)
+  f()
+  sink()
+}
+
+withfile("myoutput.txt", function() { 
+  print("hi")
+  print("bye") 
+})
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Functions: Arguments}
+  Arguments can be named and given default values. Special \texttt{...} argument captures any other passed arguments.
+<<>>=
+f <- function(a, b, c = 0.5, ...) {
+  round(a:b * c, ...)
+}
+@ 
+<<>>=
+f(1, 3)
+f(b = 3, a = 1)
+f(c = 1/3, 1 , 3, digits = 3)
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Booleans and Comparisons}
+  \begin{itemize}
+    \item Standard boolean operations:
+<<>>=
+c(TRUE && TRUE, TRUE && FALSE, FALSE || TRUE)
+@
+    \item Single boolean \texttt{if-else} statements; \texttt{switch} function
+
+    \item Elementwise boolean operations \texttt{|} and \texttt{\&}:
+<<>>=
+c(TRUE, TRUE, FALSE) | c(FALSE, TRUE, FALSE)
+@ 
+     \item Elementwise comparisons:
+<<>>=
+ifelse(c(1,2,3,4,5) %% 2 == 0, "even", "odd")
+@ 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise: Function to compute multiples}
+From Project Euler Problem 1:
+\begin{quote}
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+\end{quote}
+
+\begin{itemize}
+  \item Write a function \texttt{isThreeOrFive} that returns a boolean (hint: \texttt{\%\%} is modulo).
+  \item Apply the function to all values from 1 to 1000 (hint: \texttt{1:1000}).
+  \item Use the \texttt{sum} function to answer the question.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example solutions}
+  \begin{itemize}
+    \item Vectorization:
+<<>>=
+isThreeOrFive <- function(x) { 
+  # by using elementwise operation, this is vectorized
+  (x %% 3 == 0) | (x %% 5 == 0) 
+}
+                                                                        
+sum((1:999)[isThreeOrFive(1:999)])
+@ 
+    \item Explicit looping:
+<<>>=
+s <- 0
+for (x in 1:999) {
+  if (isThreeOrFive(x)) s <- s + x
+}
+s
+@ 
+    \item Functional one liner:
+<<>>=
+sum(Filter(x = 1:1000, f = isThreeOrFive))
+@ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Missing Values}
+  \begin{itemize}
+    \item Missing values for any data type is notated with the special \texttt{NA} value.
+    \item Missing values (\texttt{NA}) are neither true or false, but short circuiting can still occur:
+<<>>=
+c(FALSE && NA, TRUE || NA)
+c(TRUE && NA, FALSE || NA)
+@ 
+    \item Many functions will have special \texttt{NA} handling arguments:
+<<>>=
+nas <- c(1, 2, 3, NA, 5)
+mean(nas)
+mean(nas, na.rm = TRUE)
+@ 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Matrices}
+  The \texttt{matrix} class holds a single mode of data in a square format.
+      \begin{itemize}
+        \item Convenient substripting notation style:
+        \item Standard linear algebra tools available.
+        \item The \texttt{array} class generalizes to dimensions $>
+          2$.
+      \end{itemize}
+<<>>=
+matrix <- matrix(1:12, nrow = 3)
+m[1:2, 2:3]
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Data Frames}
+  The \texttt{data.frame} class holds multiple modes, \texttt{\$} operator to get specific columns as vectors.
+<<>>=
+df <- data.frame(nums = 1:10, letters = letters[1:10])
+df[1:3, ]
+df$letters
+@      
+\end{frame}
+
+\begin{frame}[fragile]{Formulas}
+  A common interface is a formula with a left and right hand side:
+<<results = hide>>=
+y ~ x1 + x2 + x3 * x4 + log(x5)
+@
+  \begin{itemize}
+    \item Used in many model fitting and plotting routines.
+    \item Short hand notation for interactions (\texttt{:} and \texttt{*}).
+    \item Many functions permitted.
+    \item Can pull variables from the enviroment, but usally better to combine with a \texttt{data = mydata} argument.
+   \end{itemize}
+\end{frame}
+
+\section{Plotting}
+
+\begin{frame}{Plotting Basics}
+  \begin{itemize}
+    \item Many objects have \texttt{plot} methods.
+    \item These can be combined with other plotting primitives to create nice graphics.
+    \item Output can be viewed interatively or saved as PDF, SVG, PNG, JPG, and others.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example: Building a linear model}
+<<>>=
+library(MASS)
+randoms <- as.data.frame(
+    mvrnorm(n = 100, 
+            mu = c(1,2), 
+            Sigma = matrix(c(1, 0.5, 0.5, 1),
+                           nrow = 2)))
+colnames(randoms) <- c("x", "y")
+randoms$w <- (randoms$x + rnorm(100)) > 0
+model <- lm(y ~ x, data = randoms)
+@ 
+\end{frame}
+
+\begin{frame}[fragile]{Example: Plotting regression model}
+% \setkeys{Gin}{width=0.8\textwidth}
+\begin{columns}[c]
+  \column{0.4\textwidth}
+<<regModelPlot, fig=TRUE, echo = FALSE>>=
+plot(y ~ x,
+     data = randoms,
+     col = ifelse(randoms$w == 1,
+                  "red",
+                  "blue"),
+     main = "Fancy Plot")
+cs <- model$coefficients
+abline(a = cs[1], 
+       b = cs[2])
+@
+  \column{0.6\textwidth}
+<<>>=
+<<regModelPlot>>
+@
+\end{columns}
+\end{frame}
+
+\begin{frame}{More examples}
+  \begin{figure}
+  \centering
+  \includegraphics{rgraphgallery.png}
+  \caption{Mini examples from \href{http://web.archive.org/web/20130113002105/http://gallery.r-enthusiasts.com/}{R Graphics Gallery}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise: Plotting Heart Muscle Experiment}
+  \begin{itemize}
+    \item Load the rat heart muscle experiment data: \texttt{data(muscle)}
+    \item Plot \texttt{Conc} versus \texttt{Length}
+    \item What is the distribution of the \texttt{Length} variable? (Hint: try plotting the results of \texttt{density} function)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise: Plotting Heart Muscle Experiment}
+\begin{columns}[c]
+<<echo = FALSE, results = hide>>=
+data(muscle)
+@ 
+  \column{0.4\textwidth}
+<<musclePlot, fig=TRUE, echo = FALSE>>=
+cols <- rainbow(
+    nlevels(muscle$Strip))
+plot(Conc ~ Length,
+     data = muscle,
+     col = cols[muscle$Strip])
+@
+  \column{0.6\textwidth}
+<<>>=
+<<musclePlot>>
+@
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise: Length density plot}
+  \begin{columns}[t]
+  \column{0.4\textwidth}
+<<muscleHistPlot, fig=TRUE, echo = FALSE>>=
+plot(density(muscle$Length),
+     main = "Length")
+@
+  \column{0.6\textwidth}
+<<>>=
+<<muscleHistPlot>>
+@
+\end{columns}
+\end{frame}
+
+\section{Packages}
+
+\begin{frame}{CRAN}
+  The \href{http://cran.r-project.org/}{Comprehensive \R Archive Network}(CRAN) is a repository for community packages.
+  \begin{itemize}
+    \item \input{crancounts}
+    \item Easy to use with \texttt{install.packages("packageName")}
+    \item Packages for different statistical techniques, plotting/graphics, parsing, development tools.
+    \item Pre-built binaries for Windows and OS X. Source builds for other platforms.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}[fragile]{Installing and Using Packages}
+<<eval = FALSE>>=
+install.packages("e1071")
+@ 
+  
+<<>>=
+library(e1071)
+data(Titanic)
+m <- naiveBayes(Survived ~ ., data = Titanic)
+me <- list(class = "3rd", Sex = "Male", "Age" = "Adult")
+predict(m, newdata = me)
+@ 
+\end{frame}
+
+\begin{frame}{Some recommend packages}
+  \begin{itemize}
+    \item \texttt{caret}: Machine learning meta package
+    \item \texttt{lattice} and \texttt{ggplot}: Advance plotting packages.
+    \item \texttt{xtable}: Formats tables as \LaTeX and HTML
+    \item \texttt{Rcpp}: Simplifies interfacing with C/C++.
+    \item \texttt{plyr}: Data manipulation routines.
+  \end{itemize}
+\end{frame}
+
+% - (10) installing packages, recommended packages
+
+\section{Using \R}
+
+\begin{frame}[fragile]{Sweave}
+  \begin{itemize}
+    \item Embed \R in \LaTeX (e.g. these slides)
+    \item Chunks are evaluated and (optionally) output TeX.
+    \item Figures can be generated as well
+  \end{itemize}
+\begin{columns}[t]
+  \column{0.5\textwidth}
+\texttt{file.Rnw}
+\begin{verbatim}
+ <<chunkname, eval = TRUE>>=
+ c(1, 2, 3) + c(4, 5, 6)
+ @
+\end{verbatim}
+  \column{0.5\textwidth}
+\texttt{file.tex}
+\begin{verbatim}
+<<chunkname, eval = TRUE>>=
+c(1, 2, 3) + c(4, 5, 6)
+@
+\end{verbatim}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Using R to Create Artifacts}
+ \begin{itemize}
+   \item Projects with multiple languages, phases
+   \item We use \texttt{make} to map out dependencies and run \R
+   \item The \texttt{save} function serializes most data types.
+   \item Typical workflow:
+     \begin{itemize}
+       \item Load data (usually a \texttt{.csv} or similar)
+       \item Process data using \R and save \texttt{.rda} file
+       \item Analysis phases consume \texttt{data.rda} and produce more \texttt{.rda} files
+       \item Figures, tables, etc. rely on these items and are built via \texttt{Makefile}
+       \item Output documents (\texttt{paper.pdf}, \texttt{presentation.pdf}) depend on entire collection.
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Interfacing R with Other Languages}
+  \begin{itemize}
+    \item \R is largely built on C and Fortran and interfacing is pretty straight forward.
+    \item \texttt{Rcpp} and \texttt{inline} packages make it even easier (including compiling writing C++ as a string)
+    \item \texttt{RInside} is a package to allow calling \R from C++
+    \item \texttt{RPy2}, \texttt{RJava}, \texttt{RinRuby}, \texttt{statistics::R}, probably others
+    \item \texttt{foreign} library can read many formats
+    \item \texttt{RSQLite}: interact with \texttt{sqlite3} files, bindings for most languages
+  \end{itemize}
+\end{frame}
+
+% - (10) Using R in a larger project, reproducible research
+
+\section{Other Resources}
+
+\begin{frame}{Books}
+  \begin{itemize}
+   \item \emph{The Art of R Programming} by Norman Matloff
+   \item \emph{Software for Data Analysis: Programming with R} by John Chambers
+   \item \emph{Reproducible Research in R and RStudio} by Christopher Gandrud
+   \item O'Reilly \R cookbooks
+   \item Many books that teach specific statistical techniques with \R demonstrations
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Web}
+  \begin{itemize}
+    \item \url{r-project.org}: downloads, introductory guides, packages
+    \item Searching the web for ``R'' is an extreme frustration (get used to it)
+    \item \href{http://www.burns-stat.com/pages/Tutor/R_inferno.pdf}{R Inferno}: common pitfalls and workarounds
+    \item Mailing lists: r-help, r-devel
+    \item \url{stackoverflow.com} and \url{stats.stackexchange.com}
+    \item \url{r-bloggers.com}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Editors}
+  \begin{itemize}
+    \item \R for Windows and OS X ship with REPL and editor
+    \item \texttt{Rcmdr} and \texttt{tinR} attempt to add a full GUI
+    \item emacs: \emph{Emacs Speaks Statistics} is a set of modes, including a REPL and Sweave interaction
+    \item vim: syntax highlighting, I was never able to get interactive stuff to work (I use emacs + EVIL + ESS)
+    \item RStudio: commerical IDE freeware; available as Java app and in-browser interface
+  \end{itemize}
+\end{frame}
+
+\section{Data Competition}
+% - (15) Data competition
+
+\end{document}
