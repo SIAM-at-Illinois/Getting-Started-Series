@@ -251,6 +251,26 @@ A = \begin{pmatrix}
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{Resizing Delimiters}
+  \begin{itemize}
+    \item The \verb|\left|, \verb|\right|, and \verb|\middle| commands are used to automatically resize
+      delimiters like parenthesis based on content
+    \item Period \verb|.| denotes an omitted left or right delimiter
+    \item The \verb|\big|, \verb|\Big|, \verb|\bigg|, and \verb|\Bigg| commands can be used to manually resize delimiters
+  \end{itemize}
+  \begin{table}
+  \small
+  \begin{tabular}{l l}
+    \verb|$\left(\frac{x^2}{y+x}\right)^2$| & $\rightarrow \quad$ \begin{minipage}{.3\textwidth} \[ \left(\frac{x^2}{y + x}\right)^2 \]\end{minipage} \\
+    \begin{minipage}{.6\textwidth}\begin{verbatim}$P\left(X=1 \middle|
+  \frac{X}{Y} \geq 2 \right)$\end{verbatim}\end{minipage} & $\rightarrow \quad$ \begin{minipage}{.3\textwidth} \[ P\left(X=1 \middle|\frac{X}{Y} \geq 2\right) \]\end{minipage} \\
+    \verb!$\left.2x-\frac{2}{x^3}\right|_0^1$! & $\rightarrow \quad$ \begin{minipage}{.3\textwidth}\[ \left.2x - \frac{2}{x^3}\right|_0^1\] \end{minipage} \\
+    \verb|$( \big( \Big( \bigg( \Bigg($| & $\rightarrow \quad$ \begin{minipage}{.3\textwidth}\[ ( \big( \Big( \bigg( \Bigg( \] \end{minipage} 
+  \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{Math Accents}
   \begin{itemize} \item Special accents over variables/expressions may be used in math mode \end{itemize}
   \begin{table}
@@ -270,7 +290,7 @@ A = \begin{pmatrix}
 \begin{frame}
   \frametitle{Exercise 3: Matrices}
   \begin{itemize}
-    \item Produce the following equation in \LaTeX{}:
+    \item Produce the following equations in \LaTeX{}:
       \begin{align*}
         \begin{vmatrix}a & b \\ c & d\end{vmatrix} & = ad - bc \\
         \vec{x} & = \begin{pmatrix}x_1 & x_2 & \cdots & x_n\end{pmatrix}^\mathsf{T}
@@ -286,7 +306,7 @@ A = \begin{pmatrix}
 \begin{frame}[fragile]
   \frametitle{Exercise 3: Matrices (Solution)}
   \begin{itemize}
-    \item Produce the following equation in \LaTeX{}:
+    \item Produce the following equations in \LaTeX{}:
       \begin{align*}
         \begin{vmatrix}a & b \\ c & d\end{vmatrix} & = ad - bc \\
         \vec{x} & = \begin{pmatrix}x_1 & x_2 & \cdots & x_n\end{pmatrix}^\mathsf{T}
