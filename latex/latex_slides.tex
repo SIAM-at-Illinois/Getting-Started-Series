@@ -2,6 +2,7 @@
 
 \usepackage{beamerthemesplit} % TODO: use different beamer theme
 \usepackage{framed}
+%\usepackage{amsmath}
 
 \title{SIAM: Getting Started with \LaTeX}
 \author{Matthew Michelotti}
@@ -107,7 +108,7 @@ paragraph.\end{verbatim}
   \small
   \begin{table}
   \begin{tabular}{l l}
-    \verb|\documentclass[12pt]{article}| & describes appearance of document \\
+    \verb|\documentclass[11pt]{article}| & describes appearance of document \\
      & (similar to CSS) \\
     \verb|\begin{document}| & begins document environment \\
     \verb|\section{Section Title}| & starts a new section \\
@@ -148,11 +149,19 @@ paragraph.\end{verbatim}
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Exercise 2: Definition of Derivative}
   \begin{itemize}
     \item Produce the following equation in \LaTeX{}:
     \[ \frac{\mathrm{d}f(x)}{\mathrm{d}x} = \lim_{\delta \to 0} \frac{f(x + \delta) - f(x)}{\delta} \]
+    \item Start from the following:
+  \end{itemize}
+\begin{verbatim}\documentclass[11pt]{article}
+\usepackage{amsmath}
+\begin{document}
+  % add your content here
+\end{document}\end{verbatim}
+  \begin{itemize}
     \item Helpful sites:
       \begin{itemize}
         \item en.wikibooks.org/wiki/LaTeX/Mathematics
@@ -288,12 +297,12 @@ A = \begin{pmatrix}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Exercise 3: Matrices}
+  \frametitle{Exercise 3: More Math}
   \begin{itemize}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
         \begin{vmatrix}a & b \\ c & d\end{vmatrix} & = ad - bc \\
-        \vec{x} & = \begin{pmatrix}x_1 & x_2 & \cdots & x_n\end{pmatrix}^\mathsf{T}
+        \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
       \end{align*}
     \item Helpful sites:
       \begin{itemize}
@@ -304,25 +313,19 @@ A = \begin{pmatrix}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 3: Matrices (Solution)}
+  \frametitle{Exercise 3: More Math (Solution)}
   \begin{itemize}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
         \begin{vmatrix}a & b \\ c & d\end{vmatrix} & = ad - bc \\
-        \vec{x} & = \begin{pmatrix}x_1 & x_2 & \cdots & x_n\end{pmatrix}^\mathsf{T}
+        \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
       \end{align*}
     \item Solution:
   \end{itemize}
   {\small \begin{verbatim}\begin{align*}
   \begin{vmatrix} a & b \\ c & d \end{vmatrix} & = ad - bc \\
-  \vec{x} & = \begin{pmatrix}
-    x_1 & x_2 & \cdots & x_n
-    \end{pmatrix}^\mathsf{T}
+  \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
 \end{align*}\end{verbatim}}
-  \begin{itemize}
-    \item There is some variation and debate about how best to typeset certain things
-      (e.g.\ matrix transpose operator)
-  \end{itemize}
 \end{frame}
 
 \end{document}
