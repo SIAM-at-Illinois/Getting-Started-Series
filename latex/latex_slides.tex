@@ -69,7 +69,8 @@
 \frame{
   \frametitle{Exercise 1: Compiling}
   \begin{itemize}
-    \item Go to website www.compileonline.com/try\_latex\_online.php
+    \item If you have \LaTeX{} installed on your laptop, you can use that
+    \item Otherwise, go to www.compileonline.com/try\_latex\_online.php
     \item Compile the example \LaTeX{} file on this website
     \begin{itemize} \item The result should look as follows: \end{itemize}
   \end{itemize}
@@ -110,6 +111,7 @@ paragraph.\end{verbatim}
   \begin{tabular}{l l}
     \verb|\documentclass[11pt]{article}| & describes appearance of document \\
      & (similar to CSS) \\
+    \verb|\usepackage{amsmath}| & include package named amsmath \\
     \verb|\begin{document}| & begins document environment \\
     \verb|\section{Section Title}| & starts a new section \\
     \verb|\subsection{Subsection Title}| & starts a new subsection \\
@@ -117,6 +119,90 @@ paragraph.\end{verbatim}
     \verb|\end{document}| & ends document environment
   \end{tabular}
   \end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Example Document}
+  \begin{itemize}
+    \item \LaTeX{} document will have information like title and date in top matter
+    \item Contents of document belong in document environment
+    \item Line comments start with \verb|%|
+  \end{itemize}
+  \begin{verbatim}\documentclass[11pt]{article}
+\usepackage{amsmath}
+\title{\LaTeX}
+\author{Your Name}
+\date{} % omits date since this is empty
+\begin{document}
+  \maketitle
+  \section{Introduction}
+  This is the introduction of my document.
+  ...
+\end{document}\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Cross-Referencing}
+  \begin{itemize}
+    \item Many things in \LaTeX{}, such as sections and subsections, are automatically numbered
+    \begin{itemize}
+      \item Numbering can be suppressed using asterisk, e.g.\ \verb|\section*{...}|
+    \end{itemize}
+    \item Automatically numbered entities in \LaTeX{} can be labeled using \verb|\label{...}|
+    \item Any labeled entity can be referenced using \verb|\ref{...}|
+    \item Command \verb|\ref{...}| is often preceded by \verb|~|, denoting a space that
+      cannot be a line break
+  \end{itemize}
+  \begin{verbatim}\section{Introduction}
+\label{sec:intro}
+This is the introduction.
+\section{Results}
+In section~\ref{sec:intro}, we provided introductory
+material. Now we will provide results.\end{verbatim}
+\end{frame}
+
+\frame{
+  \frametitle{Exercise 2: Sections}
+  \begin{itemize}
+    \item Create the following document in \LaTeX{}
+  \end{itemize}
+  \centerline{
+  \begin{minipage}{.6\textwidth} 
+  \begin{framed}
+    \includegraphics[trim = 33mm 115mm 33mm 59mm, clip, width=\textwidth]{figures/referencing.pdf}
+  \end{framed}
+  \end{minipage}
+  }
+  \begin{itemize}
+    \item Helpful sites:
+      \begin{itemize} \footnotesize
+        \item http://en.wikibooks.org/wiki/LaTeX/Document\_Structure
+        \item http://en.wikibooks.org/wiki/LaTeX/Labels\_and\_Cross-referencing
+      \end{itemize}
+  \end{itemize}
+}
+
+\begin{frame}[fragile]
+  \frametitle{Exercise 2: Sections (Solution)}
+{\small \begin{verbatim}\documentclass[12pt]{article}
+\title{\LaTeX}
+\author{Your Name}
+\begin{document}
+  \maketitle
+  \section{Introduction}
+  This is the introduction.  Section~\ref{sec:body} contains
+  the body of the paper.
+  \section{Body}
+  \label{sec:body}
+  This is the body.
+    \subsection{Approach}
+    This is a numbered subsection.
+    \subsection*{Results}
+    This is an unnumbered subsection.
+\end{document}\end{verbatim} }
+\begin{itemize} \small
+  \item Omitting \verb|date{...}| or using \verb|date{\today}| causes document to use today's date
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -150,7 +236,7 @@ paragraph.\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 2: Definition of Derivative}
+  \frametitle{Exercise 3: Definition of Derivative}
   \begin{itemize}
     \item Produce the following equation in \LaTeX{}:
     \[ \frac{\mathrm{d}f(x)}{\mathrm{d}x} = \lim_{\delta \to 0} \frac{f(x + \delta) - f(x)}{\delta} \]
@@ -171,7 +257,7 @@ paragraph.\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 2: Definition of Derivative (Solution)}
+  \frametitle{Exercise 3: Definition of Derivative (Solution)}
   \begin{itemize}
     \item Produce the following equation in \LaTeX{}:
     \[ \frac{\mathrm{d}f(x)}{\mathrm{d}x} = \lim_{\delta \to 0} \frac{f(x + \delta) - f(x)}{\delta} \]
@@ -297,7 +383,7 @@ A = \begin{pmatrix}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Exercise 3: More Math}
+  \frametitle{Exercise 4: More Math}
   \begin{itemize}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
@@ -313,7 +399,7 @@ A = \begin{pmatrix}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 3: More Math (Solution)}
+  \frametitle{Exercise 4: More Math (Solution)}
   \begin{itemize}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
