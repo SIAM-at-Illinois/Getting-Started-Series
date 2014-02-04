@@ -37,50 +37,227 @@
 \frame
 {
     \frametitle{Version Control System}
-    \begin{columns}
-    \begin{column}{.7\textwidth}
-    \begin{itemize}
-        \item Record changes to files
-        \item Versions can be recalled later
-        \item Terminology
-        \begin{itemize}
-            \item Repository
-            \item Working copy
-            \item Checkout
-            \item Commit
-            \item Branch
-            \item Merge
-        \end{itemize}
-    \end{itemize}
-    \includegraphics[width=.5\textwidth]{figs/vc.png}
-    \end{column}
-    \begin{column}{.3\textwidth}
-    \begin{center}
-    \includegraphics[width=.8\textwidth]{figs/vc-graph.png}
-    \end{center}
-    \end{column}
-    \end{columns}
+
+        Perserve a clear, timely record of software evolution
+            \begin{itemize}
+                \item Record changes to files
+                \item History can be recalled/inspected
+            \end{itemize}
+        Implications:
+            \begin{itemize}
+                \item Rollback changes
+                \item Know what collaborators are working on
+                \item Investigate changes when bugs emerge
+                \item Find how and where a particular bug was fixed
+            \end{itemize}
 }
 
 \frame
 {
-    \frametitle{Version Control System}
-    \begin{columns}
-    \begin{column}{.6\textwidth}
-        \begin{itemize}
-            \item Local repository: directory containing a collection of commits and metadata for a project
-            \item Staging area (Index): file detailing content of next commit, allows for incrementally building commits
-            \item Working directory: single checkout of one version of the project
-        \end{itemize}
-    \end{column}
-    \begin{column}{.4\textwidth}
-        \begin{center}
-            \includegraphics[width=\textwidth]{figs/sections.png}
-        \end{center}
-        \end{column}
-    \end{columns}
+    \frametitle{VCS Components (Working Tree)}
+
+    \begin{itemize}
+        \item Single checkout of one version of the project
+        \item Directories
+        \item Files
+    \end{itemize}
 }
 
+\frame
+{
+    \frametitle{VCS Components (Repository)}
+
+    \begin{itemize}
+        \item files
+        \item commits
+        \item ancestry
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{VCS Components (References)}
+
+    \begin{itemize}
+        \item tags
+        \item branches
+        \item HEAD
+        \item Index (Staging area)
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{VCS Operations}
+        \begin{columns}
+            \begin{column}{.5\textwidth}
+        Bootstrap
+            \begin{itemize}
+                \item init
+                \item clone
+                \item checkout branch
+            \end{itemize}
+        Modify
+        \begin{itemize}
+            \item add, delete, rename
+            \item commit
+        \end{itemize}
+         Information
+        \begin{itemize}
+            \item status
+            \item diff
+            \item log
+        \end{itemize}
+   \end{column}
+    \begin{column}{.5\textwidth}
+        Reference
+        \begin{itemize}
+            \item tag
+            \item branch
+        \end{itemize}
+        Sharing work, backing it up
+\begin{itemize}
+    \item pull, fetch
+    \item push
+\end{itemize}
+
+    \end{column}
+\end{columns}
+
+}
+\frame
+{
+    \begin{center}
+        \includegraphics[width=.8\textwidth]{figs/sections.png}
+    \end{center}
+}
+
+\begin{frame}[fragile]
+    \frametitle{Bootstrapping}
+    
+    \verb|$ git init|
+    \begin{itemize}
+        \item creates .git directory and initializes the repository
+    \end{itemize}
+    \verb|$ git clone <URL>|
+    \begin{itemize}
+        \item replicates a remote repository
+        \item checks out new working tree
+        \item Git URLs
+            \begin{itemize}
+                \item /home/user/my-project.git
+                \item http://github.com/user/my-project.git
+                \item git://remote.server/my-project.git
+                \item user@remote.server:my-project.git
+                \item ssh://user@remote.server/~user/my-project.git
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Staging}
+    \verb|$ git add <path>|
+    \begin{itemize}
+        \item Adds contents of <path> to index
+        \item \verb|$ git add .|
+    \end{itemize}
+    
+    \verb|$ git rm <file>|
+    \begin{itemize}
+        \item Removes files from working tree and index
+    \end{itemize}
+
+    \verb|$ git mv <source> <destination>|
+    \begin{itemize}
+        \item Moves or renames a file or directory
+    \end{itemize}
+    \verb|.gitignore|
+    \begin{itemize}
+        \item Text file that specifies files to ignore
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Committing}
+
+    \verb|$ git commit -m <msg>|
+    \begin{itemize}
+        \item Creates a commit of staged items
+        \item \verb|$ git commit -m "fixes issue #108"|
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Inspection}
+
+    \verb|$ git status|
+    \begin{itemize}
+        \item Displays the working tree status
+        \item staged, unstaged, untracked
+    \end{itemize}
+    \verb|$ git diff|
+    \begin{itemize}
+        \item Displays changes between index and working tree
+    \end{itemize}
+    \verb|$ git git diff --staged|
+    \begin{itemize}
+        \item Displays changes between HEAD and index
+    \end{itemize}
+    \verb|$ git diff HEAD|
+    \begin{itemize}
+        \item Displays changes between HEAD and working tree
+    \end{itemize}
+    \verb|$ git diff <commit> <commit>|
+    \begin{itemize}
+        \item Displays changes between two commits
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Referencing Objects}
+
+    \begin{itemize}
+        \item \verb|a88dbbe57b9e9fc01f701c45c405647c588e6a6a|
+        \item \verb|a88d|
+        \item \verb|v1.0.3|
+        \item \verb|master|
+        \item \verb|origin/master|
+        \item \verb|HEAD|
+        \item \verb|HEAD^ == HEAD~1|
+        \item \verb|feature_brach@{May.30}|
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Show and Log}
+
+    \verb|$ git show <object>|
+    \begin{itemize}
+        \item Show various types of objects
+        \item \verb|$ git show HEAD@{yesterday}|
+        \item \verb|$ git show HEAD:file|
+    \end{itemize}
+
+    \verb|$ git log [<since>..<until>] [-- <path>]|
+    \begin{itemize}
+        \item Show commit logs
+        \item \verb|$ git log HEAD~3..HEAD^|
+        \item \verb|$ git log -- file-with-bug.c|
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Branching}
+
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Merging}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Remotes}
+\end{frame}
 \frame
 {
     \frametitle{Distributed}
