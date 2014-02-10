@@ -1,13 +1,15 @@
 \documentclass[english,compress]{beamer}
 
+\usepackage{tcolorbox}
 \usepackage{listings}
+\tcbuselibrary{listings}
 \useoutertheme{split}
 \useinnertheme{rectangles}
 \usecolortheme{uiuc}
 \logo{\includegraphics[height=0.5cm]{uiuclogo.pdf}}
 
 \title{SIAM: Getting Started with Git}
-\subtitle{based on http://git-scm.com/book}
+\subtitle{based on http://git-scm.com/book and slides by Bart Trojanowski}
 \author{Andrew Reisner}
 \date{\today}
 
@@ -38,7 +40,7 @@
 {
     \frametitle{Version Control System}
 
-        Perserve a clear, timely record of software evolution
+        Preserve a clear, timely record of software evolution
             \begin{itemize}
                 \item Record changes to files
                 \item History can be recalled/inspected
@@ -61,29 +63,46 @@
         \item Directories
         \item Files
     \end{itemize}
+    \begin{center}
+        \includegraphics[height=.3\textwidth]{figs/working-tree.png}
+    \end{center}
 }
 
 \frame
 {
     \frametitle{VCS Components (Repository)}
 
+    \begin{columns}
+        \begin{column}{.5\textwidth}
     \begin{itemize}
         \item files
         \item commits
         \item ancestry
     \end{itemize}
+\end{column}
+\begin{column}{.5\textwidth}
+    \includegraphics[width=.8\textwidth]{figs/repo.png}
+\end{column}
+\end{columns}
 }
 
 \frame
 {
     \frametitle{VCS Components (References)}
 
+    \begin{columns}
+        \begin{column}{.5\textwidth}
     \begin{itemize}
         \item tags
         \item branches
         \item HEAD
         \item Index (Staging area)
     \end{itemize}
+\end{column}
+\begin{column}{.5\textwidth}
+    \includegraphics[width=\textwidth]{figs/references.png}
+\end{column}
+\end{columns}
 }
 
 \frame
@@ -249,15 +268,92 @@
 \begin{frame}[fragile]
     \frametitle{Branching}
 
+    \verb|$ git branch -l|
+    \begin{itemize}
+        \item List local branches
+    \end{itemize}
+
+    \verb|$ git branch <branchname> |
+    \begin{itemize}
+        \item Create new branch on HEAD
+    \end{itemize}
+
+    \verb|$ git branch <branchname> <start-commit>|
+    \begin{itemize}
+        \item Create new branch on specified commit
+    \end{itemize}
+
+    \verb|$ git checkout <branch>|
+    \begin{itemize}
+        \item Checkout branch by name
+    \end{itemize}
+
+    \verb|$ git checkout -b <branchname> [<start-commit>]|
+    \begin{itemize}
+        \item Create and switch to a new branch
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Merging}
+
+    \verb|$ git merge <branch>|
+    \begin{itemize}
+        \item Incorporates changes from the specified branch into the current
+            branch.
+        \item Conflicts may result
+        \item Any conflicts must be resolved before merge is completed
+    \end{itemize}
+
+    \begin{tcblisting}{listing only}
+var = 3
+<<<<<<< HEAD
+x = 0.5 * var
+=======
+x = 1/2. * var
+>>>>>>> origin/master
+    \end{tcblisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{Remotes}
+
+    \verb|$ git remote add <name> <url>|
+    \begin{itemize}
+        \item Adds a remote named <name> for the repository at <url>
+    \end{itemize}
+
+    \verb|$ git fetch <remote>|
+    \begin{itemize}
+        \item Fetches updates from specified remote
+        \item \verb|$ git fetch --all|
+    \end{itemize}
+
+    \verb|$ git branch -r |
+    \begin{itemize}
+        \item List remote branches
+        \item Use \verb|$ git merge| to merge these branches
+    \end{itemize}
+
+    \verb|$ git pull [<remote>] [<branch>]|
+    \begin{itemize}
+        \item Short for a fetch followed by a merge
+    \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Challenge Problem}
+
+    Shape module at \verb|https://github.com/dattashantih/git-example.git|
+    \begin{itemize}
+        \item Fork and clone repository
+        \item Locate and fix bug
+        \item Push to your public repository
+        \item Submit pull request (note: pull requests will be processed in 
+            order and must be up to date)
+    \end{itemize}
+\end{frame}
+
 \frame
 {
     \frametitle{Distributed}
