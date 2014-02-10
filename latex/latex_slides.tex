@@ -1,5 +1,10 @@
 \documentclass[mathserif]{beamer}
 
+\useoutertheme{split}
+\useinnertheme{rectangles}
+\usecolortheme{uiuc}
+\logo{\includegraphics[height=0.5cm]{uiuclogo.pdf}}
+
 \usepackage{beamerthemesplit} % TODO: use different beamer theme
 \usepackage{framed}
 %\usepackage{amsmath}
@@ -10,7 +15,23 @@
 
 \renewcommand{\arraystretch}{1.1}
 
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\setbeamertemplate{caption}[numbered]
+
 \begin{document}
+
+\defbeamertemplate*{footline}{shadow theme} {
+\leavevmode \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,
+ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]
+{author in head/foot}%
+\usebeamerfont{author in head/foot}\insertshortauthor
+\end{beamercolorbox}\begin{beamercolorbox}[wd=.5\paperwidth,
+ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]
+{title in head/foot}%
+\usebeamerfont{title in head/foot}\insertshorttitle
+\hfill \insertframenumber{} / \inserttotalframenumber
+\end{beamercolorbox}}
+}
 
 \frame{\titlepage}
 
@@ -31,6 +52,7 @@
 \date{}
 \begin{document}
   \maketitle
+  \section{Introduction}
   \LaTeX{} is a document
   preparation system for the
   \TeX{} typesetting program.
@@ -66,39 +88,47 @@
   \end{itemize}
 \end{frame}
 
-\frame{
-  \frametitle{Exercise 1: Compiling}
-  \begin{itemize}
-    \item If you have \LaTeX{} installed on your laptop, you can use that
-    \item Otherwise, go to www.compileonline.com/try\_latex\_online.php
-    \item Compile the example \LaTeX{} file on this website
-    \begin{itemize} \item The result should look as follows: \end{itemize}
-  \end{itemize}
-
-  \centerline{
-  \begin{minipage}{.6\textwidth} 
-  \begin{framed}
-    \includegraphics[trim = 33mm 127mm 33mm 59mm, clip, width=\textwidth]{figures/example_article.pdf}
-  \end{framed}
-  \end{minipage}
-  }
-}
-
 \begin{frame}[fragile]
-  \frametitle{Spaces}
-{\small
-\begin{verbatim}You can use LaTeX to typeset regular text.  In LaTeX, using
-extra     spaces       or      a newline   doesn't matter.
-
-However, using two newlines in a row results in a new
-paragraph.\end{verbatim}
-}
-  \begin{minipage}{\textwidth} 
-  %\begin{framed}
-    \includegraphics[trim = 33mm 230mm 33mm 40mm, clip, width=\textwidth]{figures/example_spacing.pdf}
-  %\end{framed}
-  \end{minipage}
+  \frametitle{Compiling}
+  \begin{itemize}
+  \item Installing \LaTeX{} on your computer
+  \begin{itemize}
+    \item Mac: from MacPorts, MacTeX, TeXShop
+    \item Windows: TeXworks, MiKTeX
+    \item Helpful site: en.wikibooks.org/wiki/LaTeX/Installation
+  \end{itemize}
+  \item Use \verb|latex| or \verb|pdflatex| command on a .tex file to produce output
+  \begin{itemize}
+    \item \verb|pdflatex| is recommended, since it can include .pdf, .jpg, .png image formats
+      and outputs directly to .pdf
+    \item \verb|latex| uses PostScript format
+  \end{itemize}
+  \item Can also compile online at sharelatex.com
+  \end{itemize}
+  \begin{figure}
+  \includegraphics[width=.2\textwidth]{figures/texshop.png} \quad
+  \includegraphics[width=.22\textwidth]{figures/texworks.png} \quad
+  \includegraphics[width=.2\textwidth]{figures/share_latex.jpg}
+  \end{figure}
 \end{frame}
+
+%\frame{
+%  \frametitle{Exercise 1: Compiling}
+%  \begin{itemize}
+%    \item If you have \LaTeX{} installed on your laptop, you can use that
+%    \item Otherwise, go to www.compileonline.com/try\_latex\_online.php
+%    \item Compile the example \LaTeX{} file on this website
+%    \begin{itemize} \item The result should look as follows: \end{itemize}
+%  \end{itemize}
+%
+%  \centerline{
+%  \begin{minipage}{.6\textwidth} 
+%  \begin{framed}
+%    \includegraphics[trim = 33mm 127mm 33mm 59mm, clip, width=\textwidth]{figures/example_article.pdf}
+%  \end{framed}
+%  \end{minipage}
+%  }
+%}
 
 \begin{frame}[fragile]
   \frametitle{Control Sequences}
@@ -126,7 +156,6 @@ paragraph.\end{verbatim}
   \begin{itemize}
     \item \LaTeX{} document will have information like title and date in top matter
     \item Contents of document belong in document environment
-    \item Line comments start with \verb|%|
   \end{itemize}
   \begin{verbatim}\documentclass[11pt]{article}
 \usepackage{amsmath}
@@ -139,6 +168,24 @@ paragraph.\end{verbatim}
   This is the introduction of my document.
   ...
 \end{document}\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Spaces}
+{\small
+\begin{verbatim}You can use LaTeX to typeset regular text.  In LaTeX, using
+extra     spaces       or      a newline   doesn't matter.
+
+However, using two newlines in a row results in a new
+paragraph.
+
+% line comments begin with a percent sign\end{verbatim}
+}
+  \begin{minipage}{\textwidth} 
+  %\begin{framed}
+    \includegraphics[trim = 33mm 230mm 33mm 40mm, clip, width=\textwidth]{figures/example_spacing.pdf}
+  %\end{framed}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -161,8 +208,26 @@ In section~\ref{sec:intro}, we provided introductory
 material. Now we will provide results.\end{verbatim}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Compiling Multiple Times}
+  \begin{itemize}
+    \item When running \verb|pdflatex| on \verb|example.tex|, multiple files are created
+    \begin{itemize}
+      \item \verb|example.pdf|: output file
+      \item \verb|example.aux|: contains auxiliary about references, etc.
+      \item \verb|example.log|, \verb|example.synctex.gz|, etc.
+    \end{itemize}
+    \item Cross-reference information in .aux file is not ready until
+      after \verb|pdflatex| is run
+    \begin{itemize}
+      \item May need to run \verb|pdflatex| twice for references to display correctly
+      \item Using the tool Latexmk can resolve this issue
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 \frame{
-  \frametitle{Exercise 2: Sections}
+  \frametitle{Exercise 1: Sections}
   \begin{itemize}
     \item Create the following document in \LaTeX{}
   \end{itemize}
@@ -183,7 +248,7 @@ material. Now we will provide results.\end{verbatim}
 }
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 2: Sections (Solution)}
+  \frametitle{Exercise 1: Sections (Solution)}
 {\small \begin{verbatim}\documentclass[12pt]{article}
 \title{\LaTeX}
 \author{Your Name}
@@ -200,9 +265,80 @@ material. Now we will provide results.\end{verbatim}
     \subsection*{Results}
     This is an unnumbered subsection.
 \end{document}\end{verbatim} }
-\begin{itemize} \small
-  \item Omitting \verb|date{...}| or using \verb|date{\today}| causes document to use today's date
-\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Figures}
+  \begin{itemize}
+    \item Figures can be created using the figure environment
+    \item Various options for placing figures
+    \begin{itemize}
+      \item \verb|h|: here, approximately
+      \item \verb|t|: top
+      \item \verb|b|: bottom
+      \item \verb|p|: on its own page with other such figures
+      \item For example, \verb|begin{figure}[ht]...| will place the figure
+        approximately where it is listed in the markup and at the top of a page
+    \end{itemize}
+    \item Figures can include a caption and be labeled
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Figures}
+  \begin{itemize}
+    \item The figure below was made with the following code:
+  \end{itemize}
+  \begin{verbatim}\begin{figure}
+  \includegraphics[width=.6\textwidth]{siebel.jpg}
+  \label{fig:siebel}
+  \caption{A picture of Siebel Center}
+\end{figure}\end{verbatim}
+  \begin{figure}
+     \includegraphics[width=.6\textwidth]{figures/siebel.jpg}
+     \label{fig:siebel}
+     \caption{A picture of Siebel Center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{BibTeX}
+  \begin{itemize}
+    \item BibTeX is a tool used to cite articles/books and automatically form a bibliography
+    \item Use \verb|cite| command to cite something in your paper
+    \begin{itemize} \item Example: \verb|\cite{greenwade93}| \end{itemize}
+    \item Use \verb|\bibliographystyle| and \verb|\bibliography| commands at the
+      end of document where bibliography should be
+    \begin{itemize}
+      \item Example: \verb|\bibliographystyle{plain}|  \verb|\bibliography{references}{}|
+    \end{itemize}
+    \item Make a .bib file (called references.bib in our example) that describes each source
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{BibTeX}
+  \begin{itemize}
+    \item Example .bib file:
+  \end{itemize}
+{\footnotesize  \begin{verbatim}@article{greenwade93,
+    author  = "George D. Greenwade",
+    title   = "The {C}omprehensive {T}ex {A}rchive {N}etwork
+              ({CTAN})",
+    year    = "1993",
+    journal = "TUGBoat",
+    volume  = "14",
+    number  = "3",
+    pages   = "342--351"
+}
+@book{goossens93,
+    author    = "Michel Goossens and Frank Mittelbach and
+                 Alexander Samarin",
+    title     = "The LaTeX Companion",
+    year      = "1993",
+    publisher = "Addison-Wesley",
+    address   = "Reading, Massachusetts"
+}\end{verbatim} }
 \end{frame}
 
 \begin{frame}[fragile]
@@ -236,7 +372,7 @@ material. Now we will provide results.\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 3: Definition of Derivative}
+  \frametitle{Exercise 2: Definition of Derivative}
   \begin{itemize}
     \item Produce the following equation in \LaTeX{}:
     \[ \frac{\mathrm{d}f(x)}{\mathrm{d}x} = \lim_{\delta \to 0} \frac{f(x + \delta) - f(x)}{\delta} \]
@@ -257,7 +393,7 @@ material. Now we will provide results.\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 3: Definition of Derivative (Solution)}
+  \frametitle{Exercise 2: Definition of Derivative (Solution)}
   \begin{itemize}
     \item Produce the following equation in \LaTeX{}:
     \[ \frac{\mathrm{d}f(x)}{\mathrm{d}x} = \lim_{\delta \to 0} \frac{f(x + \delta) - f(x)}{\delta} \]
@@ -383,7 +519,7 @@ A = \begin{pmatrix}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Exercise 4: More Math}
+  \frametitle{Exercise 3: More Math}
   \begin{itemize}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
@@ -399,7 +535,7 @@ A = \begin{pmatrix}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Exercise 4: More Math (Solution)}
+  \frametitle{Exercise 3: More Math (Solution)}
   \begin{itemize}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
@@ -413,6 +549,13 @@ A = \begin{pmatrix}
   \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
 \end{align*}\end{verbatim}}
 \end{frame}
+
+\frame{
+  \frametitle{If You Want to Know More \ldots}
+  \begin{itemize}
+    \item \emph{en.wikibooks.org/wiki/LaTeX/} : Excellent reference for \LaTeX{} in general
+  \end{itemize}
+}
 
 \end{document}
 
