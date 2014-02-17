@@ -2,6 +2,7 @@
 
 \usepackage{tcolorbox}
 \usepackage{listings}
+\newcommand{\cw}{\texttt} % to display a word as in code format
 \tcbuselibrary{listings}
 \useoutertheme{split}
 \useinnertheme{rectangles}
@@ -15,6 +16,27 @@
 
 \begin{document}
 \frame{\titlepage}
+
+\frame
+{
+    \frametitle{Table of Contents}
+    \begin{columns}
+    \begin{column}{.5\textwidth}
+        \begin{itemize}
+            \item Overview
+            \item Components
+            \item Operations
+			\begin{itemize}
+				\item Creating and Updating
+				\item Getting Information
+				\item Branching and Remotes
+			\end{itemize}
+			\item Distributed Workflows
+			\item Hosting Websites
+        \end{itemize}
+    \end{column}
+    \end{columns}
+}
 
 \frame
 {
@@ -75,9 +97,9 @@
     \begin{columns}
         \begin{column}{.5\textwidth}
     \begin{itemize}
-        \item files
-        \item commits
-        \item ancestry
+        \item Files
+        \item Commits
+        \item Ancestry
     \end{itemize}
 \end{column}
 \begin{column}{.5\textwidth}
@@ -93,9 +115,9 @@
     \begin{columns}
         \begin{column}{.5\textwidth}
     \begin{itemize}
-        \item tags
-        \item branches
-        \item HEAD
+        \item Tags
+        \item Branches
+        \item \cw{HEAD}
         \item Index (Staging area)
     \end{itemize}
 \end{column}
@@ -112,32 +134,33 @@
             \begin{column}{.5\textwidth}
         Bootstrap
             \begin{itemize}
-                \item init
-                \item clone
-                \item checkout branch
+                \item \cw{init}
+                \item \cw{clone}
+                \item \cw{checkout <branch>}
             \end{itemize}
         Modify
         \begin{itemize}
-            \item add, delete, rename
-            \item commit
+            \item \cw{add}, delete (\cw{rm})
+			\item rename (\cw{mv})
+            \item \cw{commit}
         \end{itemize}
          Information
         \begin{itemize}
-            \item status
-            \item diff
-            \item log
+            \item \cw{status}
+            \item \cw{diff}
+            \item \cw{log}
         \end{itemize}
    \end{column}
     \begin{column}{.5\textwidth}
         Reference
         \begin{itemize}
-            \item tag
-            \item branch
+            \item \cw{tag}
+            \item \cw{branch}
         \end{itemize}
         Sharing work, backing it up
 \begin{itemize}
-    \item pull, fetch
-    \item push
+    \item \cw{pull}, \cw{fetch}
+    \item \cw{push}
 \end{itemize}
 
     \end{column}
@@ -177,7 +200,7 @@
     \frametitle{Staging}
     \verb|$ git add <path>|
     \begin{itemize}
-        \item Adds contents of <path> to index
+        \item Adds contents of \textless path\textgreater to index
         \item \verb|$ git add .|
     \end{itemize}
     
@@ -218,7 +241,7 @@
     \begin{itemize}
         \item Displays changes between index and working tree
     \end{itemize}
-    \verb|$ git git diff --staged|
+    \verb|$ git diff --staged|
     \begin{itemize}
         \item Displays changes between HEAD and index
     \end{itemize}
@@ -320,7 +343,7 @@ x = 1/2. * var
 
     \verb|$ git remote add <name> <url>|
     \begin{itemize}
-        \item Adds a remote named <name> for the repository at <url>
+        \item Adds a remote named \textless name\textgreater for the repository at \textless url\textgreater
     \end{itemize}
 
     \verb|$ git fetch <remote>|
