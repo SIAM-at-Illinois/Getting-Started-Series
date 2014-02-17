@@ -8,6 +8,8 @@
 \useinnertheme{rectangles}
 \usecolortheme{uiuc}
 \logo{\includegraphics[height=0.5cm]{uiuclogo.pdf}}
+\AtBeginSection{\frame{\sectionpage}}
+\AtBeginSubsection{\frame{\subsectionpage}}
 
 \title{SIAM: Getting Started with Git}
 \subtitle{based on http://git-scm.com/book and slides by Bart Trojanowski}
@@ -16,31 +18,12 @@
 
 \begin{document}
 \frame{\titlepage}
+\frame{\frametitle{Table of Contents}\tableofcontents}
 
+\section{Overview}
 \frame
 {
-    \frametitle{Table of Contents}
-    \begin{columns}
-    \begin{column}{.5\textwidth}
-        \begin{itemize}
-            \item Overview
-            \item Components
-            \item Operations
-			\begin{itemize}
-				\item Creating and Updating
-				\item Getting Information
-				\item Branching and Remotes
-			\end{itemize}
-			\item Distributed Workflows
-			\item Hosting Websites
-        \end{itemize}
-    \end{column}
-    \end{columns}
-}
-
-\frame
-{
-    \frametitle{Overview}
+    \frametitle{Git}
     \begin{columns}
     \begin{column}{.5\textwidth}
         Git is a
@@ -76,6 +59,7 @@
             \end{itemize}
 }
 
+\section{Components}
 \frame
 {
     \frametitle{VCS Components (Working Tree)}
@@ -127,6 +111,7 @@
 \end{columns}
 }
 
+\section{Operations}
 \frame
 {
     \frametitle{VCS Operations}
@@ -174,6 +159,7 @@
     \end{center}
 }
 
+\subsection{Creating and Updating}
 \begin{frame}[fragile]
     \frametitle{Bootstrapping}
     
@@ -229,6 +215,7 @@
     \end{itemize}
 \end{frame}
 
+\subsection{Getting Information}
 \begin{frame}[fragile]
     \frametitle{Inspection}
 
@@ -288,6 +275,7 @@
     \end{itemize}
 \end{frame}
 
+\subsection{Branching and Remotes}
 \begin{frame}[fragile]
     \frametitle{Branching}
 
@@ -377,6 +365,7 @@ x = 1/2. * var
     \end{itemize}
 \end{frame}
 
+\section{Distributed Workflows}
 \frame
 {
     \frametitle{Distributed}
@@ -418,6 +407,7 @@ x = 1/2. * var
 
 }
 
+\section{Git on the Web}
 \frame
 {
     \frametitle{Free and Open Source}
