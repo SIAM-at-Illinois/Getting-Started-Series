@@ -9,11 +9,10 @@
 \usecolortheme{uiuc}
 \logo{\includegraphics[height=0.5cm]{uiuclogo.pdf}}
 \AtBeginSection{\frame{\sectionpage}}
-\AtBeginSubsection{\frame{\subsectionpage}}
 
 \title{SIAM: Getting Started with Git}
 \subtitle{based on http://git-scm.com/book and slides by Bart Trojanowski}
-\author{Andrew Reisner}
+\author{Andrew Reisner and Nathan Bowman}
 \date{\today}
 
 \begin{document}
@@ -121,7 +120,7 @@
             \begin{itemize}
                 \item \cw{init}
                 \item \cw{clone}
-                \item \cw{checkout <branch>}
+                \item \cw{checkout}
             \end{itemize}
         Modify
         \begin{itemize}
@@ -186,7 +185,7 @@
     \frametitle{Staging}
     \verb|$ git add <path>|
     \begin{itemize}
-        \item Adds contents of \textless path\textgreater to index
+        \item Adds contents of \verb|<path>| to index
         \item \verb|$ git add .|
     \end{itemize}
     
@@ -203,6 +202,53 @@
     \begin{itemize}
         \item Text file that specifies files to ignore
     \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Example \cw{.gitignore} file}
+
+    \begin{tcblisting}{listing only}
+*.aux
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*~
+    \end{tcblisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Changing Settings}
+
+	\verb|$ git config --list|
+	\begin{itemize}
+		\item Lists the current configuration settings
+	\end{itemize}
+	\verb|$ git config <key>|
+	\begin{itemize}
+		\item Gets the current value of \verb|key|
+	\end{itemize}
+	\verb|$ git config [level] <key> <value>|
+	\begin{itemize}
+		\item Changes setting \verb|key| to \verb|value|
+		\item Optional \verb|level| determines scope of setting
+		\begin{itemize}
+			\item Omitting \verb|level|: repository
+			\item \verb|--global|: user
+			\item \verb|--system|: system
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Common Configuration Settings}
+	A few settings you will want to update when first using Git:\\ \ \\
+	\verb|$ git config --global user.name "John Doe"|
+	\verb|$ git config --global user.email johndoe@example.com|
+	\verb|$ git config --global core.editor emacs|
 \end{frame}
 
 \begin{frame}[fragile]
@@ -331,7 +377,7 @@ x = 1/2. * var
 
     \verb|$ git remote add <name> <url>|
     \begin{itemize}
-        \item Adds a remote named \textless name\textgreater for the repository at \textless url\textgreater
+        \item Adds a remote named \verb|<name>| for the repository at \verb|<url>|
     \end{itemize}
 
     \verb|$ git fetch <remote>|
