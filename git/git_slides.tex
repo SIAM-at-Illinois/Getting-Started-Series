@@ -257,6 +257,8 @@
 	\verb|$ git config --global user.name "John Doe"|
 	\verb|$ git config --global user.email johndoe@example.com|
 	\verb|$ git config --global core.editor emacs|
+	\verb|$ git config --global core.excludesfile ~/.gitignore|
+	\verb|$ git config --global merge.tool meld|
 \end{frame}
 
 \begin{frame}[fragile]
@@ -294,6 +296,20 @@
     \begin{itemize}
         \item Displays changes between two commits
     \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Demonstration of Staging}
+    \begin{tcblisting}{listing only}
+$ echo "foo" >> myfile
+$ git diff myfile
+diff --git a/myfile b/myfile
+index e69de29..257cc56 100644
+--- a/myfile
++++ b/myfile
+@@ -0,0 +1 @@
++foo
+    \end{tcblisting}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -378,6 +394,21 @@ x = 0.5 * var
 x = 1/2. * var
 >>>>>>> origin/master
     \end{tcblisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Mergetool}
+
+    \verb|$ git merge <branch>|
+    \begin{itemize}
+        \item Presents a visual interface to merging
+        \item Example: 
+		\item \verb|$ git mergetool --tool=meld|
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=.9\textwidth]{figs/meld_screenshot}
+    \end{center}
+
 \end{frame}
 
 \begin{frame}[fragile]
