@@ -102,6 +102,18 @@ wilcox.test(times[1,], times[2,],
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Why use \R?}
+  \begin{itemize}
+  \item Basic statistical programming
+  \item Graphics
+  \item Interface with other languages
+  \item Access to large repository of statistical tools
+  \item Reproducible research
+  \item Free and open source
+  \item Marketable skill
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]{Variables}
  \begin{itemize}
    \item Variables can be assigned using either \texttt{<-} or \texttt{=}
