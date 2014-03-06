@@ -153,12 +153,15 @@ mode(m)
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Exercise: Variables}
+\begin{frame}[fragile]{Exercise: Variables}
   \begin{itemize}
     \item Create a vector with three numbers (use the \texttt{c} function).
     \item Create a vector with six numbers.
     \item Add them together. What happens?
     \item \pause \texttt{R} will ``recycle'' vectors to the length of the longer one.
+<<>>=
+c(3,1,4) + c(1, 5, 9, 2, 6, 5)
+@ 
   \end{itemize}
 \end{frame}
 
@@ -258,16 +261,15 @@ Find the sum of all the multiples of 3 or 5 below 1000.
     \item Vectorization:
 <<>>=
 isThreeOrFive <- function(x) { 
-  # by using elementwise operation, this is vectorized
   (x %% 3 == 0) | (x %% 5 == 0) 
 }
                                                                         
-sum((1:999)[isThreeOrFive(1:999)])
+sum((1:1000)[isThreeOrFive(1:1000)])
 @ 
     \item Explicit looping:
 <<>>=
 s <- 0
-for (x in 1:999) {
+for (x in 1:1000) {
   if (isThreeOrFive(x)) s <- s + x
 }
 s
