@@ -1,5 +1,9 @@
 \documentclass{beamer}
 
+\useoutertheme{split}
+\useinnertheme{rectangles}
+\usecolortheme{uiuc}
+
 \usepackage{beamerthemesplit} % TODO: use different beamer theme
 \usepackage{xspace}
 \usepackage{hyperref}
@@ -25,7 +29,7 @@ options(warn = 2, width = 60, continue = " ")
 
 \frame{\titlepage}
 
-\section{Example: Comparing Two Implementations}
+% \section{Example: Comparing Two Implementations}
 % - (2) quick example
 
 \begin{frame}{Which implementation performs better?}
@@ -85,7 +89,7 @@ wilcox.test(times[1,], times[2,],
 @ 
 \end{frame}
 
-\section{\R Basics}
+% \section{\R Basics}
 \begin{frame}{What is \R?}
   \begin{itemize}
   \item A language for statistical analysis (data manipulation, modeling, visualization).
@@ -315,7 +319,7 @@ y ~ x1 + x2 + x3 * x4 + log(x5)
    \end{itemize}
 \end{frame}
 
-\section{Plotting}
+% \section{Plotting}
 
 \begin{frame}{Plotting Basics}
   \begin{itemize}
@@ -411,7 +415,7 @@ plot(density(muscle$Length),
 \end{columns}
 \end{frame}
 
-\section{Packages}
+% \section{Packages}
 
 \begin{frame}{CRAN}
   The \href{http://cran.r-project.org/}{Comprehensive \R Archive Network}(CRAN) is a repository for community packages.
@@ -450,7 +454,7 @@ predict(m, newdata = me)
 
 % - (10) installing packages, recommended packages
 
-\section{Using \R}
+% \section{Using \R}
 
 \begin{frame}[fragile]{Sweave}
   \begin{itemize}
@@ -505,7 +509,7 @@ c(1, 2, 3) + c(4, 5, 6)
 
 % - (10) Using R in a larger project, reproducible research
 
-\section{Other Resources}
+% \section{Other Resources}
 
 \begin{frame}{Books}
   \begin{itemize}
@@ -539,7 +543,7 @@ c(1, 2, 3) + c(4, 5, 6)
   \end{itemize}
 \end{frame}
 
-\section{Data Competition}
+% \section{Data Competition}
 % - (15) Data competition
 
 \end{document}
