@@ -21,7 +21,7 @@
 \title{SIAM: Getting Started with R}
 \author{Mark M. Fredrickson}
 \institute{\url{fredric3@illinois.edu}}
-\date{\today}
+\date{March 13, 2014}
 
 \begin{document}
 <<echo = FALSE, results = hide>>=
