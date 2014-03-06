@@ -20,6 +20,7 @@
 
 \title{SIAM: Getting Started with R}
 \author{Mark M. Fredrickson}
+\institute{\url{fredric3@illinois.edu}}
 \date{\today}
 
 \begin{document}
@@ -527,5 +528,14 @@ c(1, 2, 3) + c(4, 5, 6)
 
 % \section{Data Competition}
 % - (15) Data competition
+
+
+\begin{frame}{Thank You}
+  \huge
+  \begin{center}
+  Presentation can be found at:
+  \texttt{\href{https://github.com/SIAM-at-Illinois/Getting-Started-Series}{https://github.com/SIAM-at-Illinois/Getting-Started-Series}}
+  \end{center}
+\end{frame}
 
 \end{document}
