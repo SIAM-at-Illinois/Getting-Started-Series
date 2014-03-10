@@ -1,5 +1,9 @@
 \documentclass{beamer}
 
+\useoutertheme{split}
+\useinnertheme{rectangles}
+\usecolortheme{uiuc}
+
 \usepackage{beamerthemesplit} % TODO: use different beamer theme
 \usepackage{xspace}
 \usepackage{hyperref}
@@ -7,18 +11,86 @@
 
 \newcommand{\R}{\texttt{R}\xspace}
 
+\usepackage{Sweave}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{xleftmargin=2em}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=2em}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em}
+\fvset{listparameters={\setlength{\topsep}{0pt}}}
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}}
+
 \title{SIAM: Getting Started with R}
 \author{Mark M. Fredrickson}
-\date{\today}
+\institute{\url{fredric3@illinois.edu}}
+\date{March 13, 2014}
 
 \begin{document}
+<<echo = FALSE, results = hide>>=
+options(warn = 2, width = 60, continue = " ")  
+@ 
 
 \frame{\titlepage}
 
-\section{Example: Comparing Two Algorithms}
+% \section{Example: Comparing Two Implementations}
 % - (2) quick example
 
-\section{\R Basics}
+\begin{frame}{Which implementation performs better?}
+  \begin{itemize}
+    \item Imagine you have two implementations of an algorithm. You want to know which performs better on a data set.
+    \item \pause Strategy 1: Run each implementation once. Pick a winner based on that one run.
+    \item \pause Strategy 2: Run the first implementation 100 times and then run the second implementation 100 times. Compare the average run time.
+    \item \pause Strategy 3: Randomly assign order of tests. Perform Wilcoxon-Mann-Whitney test of hypothesis that there is no difference in the two implementations.
+  \end{itemize}
+\end{frame}
+
+<<echo = FALSE, results = hide>>=
+set.seed(20140306) 
+counter <- 0
+
+f <- function(x) {
+ counter <<- counter + 1
+ x + rnorm(n = 1, mean = 0.01 * counter)
+}
+
+A <- function() { f(12) }
+B <- function() { f(11) }
+@ 
+
+\begin{frame}[fragile]{Running experiment}
+<<>>=
+# number of times to run each implementation
+replicates <- 100 
+# if z is 1, run A then B, otherwise run B then A
+z <- rbinom(replicates, size = 1, p = 0.5)
+
+times <- sapply(z, function(i) {
+  if (i == 1) { 
+    return(c(A(), B()))
+  } else {
+    return(c(B(), A()))
+  }
+})
+@ 
+\end{frame}
+
+\begin{frame}{Graphing the data}
+\begin{center}
+<<fig = T, echo = FALSE, height = 6, width = 8, results = hide>>=
+plot(as.vector(times), 
+     xlab = "Run",
+     ylab = "Execution Time",
+     pch = unlist(list(c("B", "A"), c("A", "B"))[z + 1]))
+@ 
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Hypothesis test: Two algorithms perform the same}
+<<>>=
+wilcox.test(times[1,], times[2,], 
+            paired = TRUE, exact = TRUE)
+@ 
+\end{frame}
+
+% \section{\R Basics}
 \begin{frame}{What is \R?}
   \begin{itemize}
   \item A language for statistical analysis (data manipulation, modeling, visualization).
@@ -27,6 +99,18 @@
    \item Currently in version \texttt{3.0.x}.
    \item Interpreted language with bindings to C/C++, Fortran, other languages
    \item Available for Windows, Mac, UNIXes; extensive package repository
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Why use \R?}
+  \begin{itemize}
+  \item Basic statistical programming
+  \item Graphics
+  \item Interface with other languages
+  \item Access to large repository of statistical tools
+  \item Reproducible research
+  \item Free and open source
+  \item Marketable skill
   \end{itemize}
 \end{frame}
 
@@ -54,7 +138,7 @@ b
   \begin{itemize}
     \item Objects have a \emph{class} and a \emph{mode}
 <<>>=
-m <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 2)
+m <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 3)
 class(m)
 mode(m)
 @  
@@ -69,12 +153,15 @@ mode(m)
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Exercise: Variables}
+\begin{frame}[fragile]{Exercise: Variables}
   \begin{itemize}
     \item Create a vector with three numbers (use the \texttt{c} function).
     \item Create a vector with six numbers.
     \item Add them together. What happens?
     \item \pause \texttt{R} will ``recycle'' vectors to the length of the longer one.
+<<>>=
+c(3,1,4) + c(1, 5, 9, 2, 6, 5)
+@ 
   \end{itemize}
 \end{frame}
 
@@ -174,16 +261,15 @@ Find the sum of all the multiples of 3 or 5 below 1000.
     \item Vectorization:
 <<>>=
 isThreeOrFive <- function(x) { 
-  # by using elementwise operation, this is vectorized
   (x %% 3 == 0) | (x %% 5 == 0) 
 }
                                                                         
-sum((1:999)[isThreeOrFive(1:999)])
+sum((1:1000)[isThreeOrFive(1:1000)])
 @ 
     \item Explicit looping:
 <<>>=
 s <- 0
-for (x in 1:999) {
+for (x in 1:1000) {
   if (isThreeOrFive(x)) s <- s + x
 }
 s
@@ -248,16 +334,6 @@ y ~ x1 + x2 + x3 * x4 + log(x5)
    \end{itemize}
 \end{frame}
 
-\section{Plotting}
-
-\begin{frame}{Plotting Basics}
-  \begin{itemize}
-    \item Many objects have \texttt{plot} methods.
-    \item These can be combined with other plotting primitives to create nice graphics.
-    \item Output can be viewed interatively or saved as PDF, SVG, PNG, JPG, and others.
-  \end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]{Example: Building a linear model}
 <<>>=
 library(MASS)
@@ -271,27 +347,29 @@ randoms$w <- (randoms$x + rnorm(100)) > 0
 model <- lm(y ~ x, data = randoms)
 @ 
 \end{frame}
+% \section{Plotting}
+
+\begin{frame}{Plotting Basics}
+  \begin{itemize}
+    \item Many objects have \texttt{plot} methods.
+    \item These can be combined with other plotting primitives to create nice graphics.
+    \item Output can be viewed interatively or saved as PDF, SVG, PNG, JPG, and others.
+  \end{itemize}
+\end{frame}
+
 
 \begin{frame}[fragile]{Example: Plotting regression model}
 % \setkeys{Gin}{width=0.8\textwidth}
-\begin{columns}[c]
-  \column{0.4\textwidth}
-<<regModelPlot, fig=TRUE, echo = FALSE>>=
-plot(y ~ x,
-     data = randoms,
-     col = ifelse(randoms$w == 1,
-                  "red",
-                  "blue"),
+<<regModelPlot, fig=TRUE, echo = FALSE, height = 3, widht = 8>>=
+colors <- ifelse(randoms$w == 1, "red", "blue")
+plot(y ~ x, data = randoms, col = colors, 
      main = "Fancy Plot")
 cs <- model$coefficients
-abline(a = cs[1], 
-       b = cs[2])
+abline(a = cs[1], b = cs[2])
 @
-  \column{0.6\textwidth}
 <<>>=
 <<regModelPlot>>
 @
-\end{columns}
 \end{frame}
 
 \begin{frame}{More examples}
@@ -311,40 +389,29 @@ abline(a = cs[1],
 \end{frame}
 
 \begin{frame}[fragile]{Exercise: Plotting Heart Muscle Experiment}
-\begin{columns}[c]
 <<echo = FALSE, results = hide>>=
 data(muscle)
 @ 
-  \column{0.4\textwidth}
-<<musclePlot, fig=TRUE, echo = FALSE>>=
-cols <- rainbow(
-    nlevels(muscle$Strip))
-plot(Conc ~ Length,
-     data = muscle,
+<<musclePlot, fig=TRUE, echo = FALSE, height = 5, width = 8>>=
+cols <- rainbow(nlevels(muscle$Strip))
+plot(Conc ~ Length, data = muscle,
      col = cols[muscle$Strip])
 @
-  \column{0.6\textwidth}
 <<>>=
 <<musclePlot>>
 @
-\end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Exercise: Length density plot}
-  \begin{columns}[t]
-  \column{0.4\textwidth}
-<<muscleHistPlot, fig=TRUE, echo = FALSE>>=
-plot(density(muscle$Length),
-     main = "Length")
+<<muscleHistPlot, fig=TRUE, echo = FALSE, height = 6, width = 8>>=
+plot(density(muscle$Length), main = "Length")
 @
-  \column{0.6\textwidth}
 <<>>=
 <<muscleHistPlot>>
 @
-\end{columns}
 \end{frame}
 
-\section{Packages}
+% \section{Packages}
 
 \begin{frame}{CRAN}
   The \href{http://cran.r-project.org/}{Comprehensive \R Archive Network}(CRAN) is a repository for community packages.
@@ -366,7 +433,8 @@ install.packages("e1071")
 library(e1071)
 data(Titanic)
 m <- naiveBayes(Survived ~ ., data = Titanic)
-me <- list(class = "3rd", Sex = "Male", "Age" = "Adult")
+me <- list(class = "3rd", Sex = "Male",
+           Age = "Adult")
 predict(m, newdata = me)
 @ 
 \end{frame}
@@ -383,7 +451,7 @@ predict(m, newdata = me)
 
 % - (10) installing packages, recommended packages
 
-\section{Using \R}
+% \section{Using \R}
 
 \begin{frame}[fragile]{Sweave}
   \begin{itemize}
@@ -438,7 +506,7 @@ c(1, 2, 3) + c(4, 5, 6)
 
 % - (10) Using R in a larger project, reproducible research
 
-\section{Other Resources}
+% \section{Other Resources}
 
 \begin{frame}{Books}
   \begin{itemize}
@@ -472,7 +540,16 @@ c(1, 2, 3) + c(4, 5, 6)
   \end{itemize}
 \end{frame}
 
-\section{Data Competition}
+% \section{Data Competition}
 % - (15) Data competition
+
+
+\begin{frame}{Thank You}
+  \huge
+  \begin{center}
+  Presentation can be found at:
+  \texttt{\href{https://github.com/SIAM-at-Illinois/Getting-Started-Series}{https://github.com/SIAM-at-Illinois/Getting-Started-Series}}
+  \end{center}
+\end{frame}
 
 \end{document}
