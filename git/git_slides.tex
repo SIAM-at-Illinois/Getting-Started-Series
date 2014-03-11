@@ -130,6 +130,15 @@
 \end{center}
 }
 
+\frame
+{
+    \frametitle{VCS Components (Example Tree)}
+
+	\begin{center}
+		\includegraphics[height=.8\textheight]{figs/complicated-dag.png}
+	\end{center}
+}
+
 \section{Operations}
 \frame
 {
@@ -357,6 +366,27 @@ index e69de29..257cc56 100644
     \end{itemize}
 \end{frame}
 
+<<<<<<< HEAD
+\begin{frame}[fragile]
+    \frametitle{Log Formatting}
+
+    \verb|$ git log --pretty=<format>|
+    \begin{itemize}
+        \item \verb|oneline|
+        \item \verb|full|
+        \item \verb|format:"hash: %h author: %an date: %ad"|
+		\item see git-log(1) for more options
+    \end{itemize}
+	\verb|$ git log --graph --pretty=oneline|
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Log Formatting - Tree Example}
+	\begin{center}
+		\includegraphics[width=.8\textwidth, height=.8\textheight]{figs/tree-screenshot}
+	\end{center}
+\end{frame}
+
 \subsection{Branching/Remotes}
 \begin{frame}[fragile]
     \frametitle{Branching}
@@ -418,7 +448,7 @@ x = 1/2. * var
 		\item \verb|$ git mergetool --tool=meld|
     \end{itemize}
     \begin{center}
-        \includegraphics[width=.9\textwidth]{figs/meld_screenshot}
+        \includegraphics[width=.9\textwidth]{figs/meld-screenshot}
     \end{center}
 
 \end{frame}
@@ -463,6 +493,42 @@ x = 1/2. * var
                 \item upstream/fix-issue-105
             \end{itemize}
     \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Remotes Example}
+	``fred'' cannot push to ``origin''
+
+	\begin{center}
+		\includegraphics[width=.8\textwidth]{figs/several-remotes}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Remotes Example (continued)}
+	Fetch from ``fred''
+
+	\begin{center}
+		\includegraphics[width=.8\textwidth]{figs/fetch-fred}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Remotes Example (continued)}
+	Merge in the changes
+
+	\begin{center}
+		\includegraphics[width=.8\textwidth]{figs/merge-fred}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Remotes Example (continued)}
+	Push changes to ``origin''
+
+	\begin{center}
+		\includegraphics[width=.8\textwidth]{figs/push-fred}
+	\end{center}
 \end{frame}
 
 \begin{frame}[fragile]
