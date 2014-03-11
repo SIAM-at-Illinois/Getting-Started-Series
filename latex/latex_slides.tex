@@ -170,13 +170,14 @@ ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Spaces}
+  \frametitle{Spaces and Quotes}
 {\small
 \begin{verbatim}You can use LaTeX to typeset regular text.  In LaTeX, using
 extra     spaces       or      a newline   doesn't matter.
 
 However, using two newlines in a row results in a new
 paragraph.
+``This sentence is quoted.''
 
 % line comments begin with a percent sign\end{verbatim}
 }
@@ -208,7 +209,7 @@ material. Now we will provide results.\end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Compiling Multiple Times}
+  \frametitle{Compiling Multiple Times?}
   \begin{itemize}
     \item When running \verb|pdflatex| on \verb|example.tex|, multiple files are created
     \begin{itemize}
@@ -301,6 +302,7 @@ material. Now we will provide results.\end{verbatim}
      \label{fig:siebel}
      \caption{A picture of Siebel Center}
   \end{figure}
+  \scriptsize (image: cs.illinois.edu/sites/default/files/images/pagebanners/cropped-aboutus.jpg)
 \end{frame}
 
 \begin{frame}[fragile]
@@ -312,7 +314,7 @@ material. Now we will provide results.\end{verbatim}
     \item Use \verb|\bibliographystyle| and \verb|\bibliography| commands at the
       end of document where bibliography should be
     \begin{itemize}
-      \item Example: \verb|\bibliographystyle{plain}|  \verb|\bibliography{references}{}|
+      \item Example: \verb|\bibliographystyle{plain}|  \verb|\bibliography{references}|
     \end{itemize}
     \item Make a .bib file (called references.bib in our example) that describes each source
   \end{itemize}
@@ -520,7 +522,7 @@ A = \begin{pmatrix}
   \end{table}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Exercise 3: More Math}
   \begin{itemize}
     \item Produce the following equations in \LaTeX{}:
@@ -528,6 +530,7 @@ A = \begin{pmatrix}
         \begin{vmatrix}a & b \\ c & d\end{vmatrix} & = ad - bc \\
         \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
       \end{align*}
+    \item Be sure to include \verb|\usepackage{amsmath}|
     \item Helpful sites:
       \begin{itemize}
         \item en.wikibooks.org/wiki/LaTeX/Mathematics
@@ -555,8 +558,12 @@ A = \begin{pmatrix}
 \frame{
   \frametitle{If You Want to Know More \ldots}
   \begin{itemize}
-    \item \emph{en.wikibooks.org/wiki/LaTeX/} : Excellent reference for \LaTeX{} in general
-    \item \emph{www.ctan.org} : CTAN stands for the Comprehensive \TeX{} Archive Network,
+    \item \emph{en.wikibooks.org/wiki/LaTeX/} \\ Excellent reference for \LaTeX{} in general
+    \item \emph{ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf} \\
+      Useful summary of features for writing mathematics
+    \item \emph{en.wikibooks.org/wiki/LaTeX/Presentations} \\ Reference for making \LaTeX{}
+      presentations using Beamer package
+    \item \emph{www.ctan.org} \\ CTAN stands for the Comprehensive \TeX{} Archive Network,
       and contains many standard \LaTeX{} packages
   \end{itemize}
 }
