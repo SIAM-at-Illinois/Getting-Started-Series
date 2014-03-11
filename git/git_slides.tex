@@ -1,5 +1,6 @@
 \documentclass[english,compress]{beamer}
 
+\usepackage[square,numbers]{natbib}
 \usepackage{tcolorbox}
 \usepackage{listings}
 \newcommand{\cw}{\texttt} % to display a word as in code format
@@ -30,6 +31,7 @@
 \date{\today}
 
 \begin{document}
+\nocite{*}
 \frame{\titlepage}
 \frame{\frametitle{Table of Contents}\tableofcontents}
 
@@ -124,7 +126,7 @@
 \end{column}
 \end{columns}
 \begin{center}
-    \includegraphics[width=\textwidth]{figs/visual-git.png}
+    \includegraphics[width=\textwidth]{figs/visual-git.png}\cite{visual-git}
 \end{center}
 }
 
@@ -172,7 +174,7 @@
 \frame
 {
     \begin{center}
-        \includegraphics[width=.8\textwidth]{figs/sections.png}
+        \includegraphics[width=.8\textwidth]{figs/sections.png}\cite{book}
     \end{center}
 }
 
@@ -494,7 +496,7 @@ x = 1/2. * var
     \frametitle{Distributed Workflows: Centralized}
 
     \begin{center}
-        \includegraphics[width=.7\textwidth]{figs/centralized-workflow.png}
+        \includegraphics[width=.7\textwidth]{figs/centralized-workflow.png}\cite{book}
     \end{center}
 }
 
@@ -503,7 +505,7 @@ x = 1/2. * var
     \frametitle{Distributed Workflows: Integration-Manager}
 
     \begin{center}
-        \includegraphics[width=.7\textwidth]{figs/integration-manager-workflow.png}
+        \includegraphics[width=.7\textwidth]{figs/integration-manager-workflow.png}\cite{book}
     \end{center}
 
 }
@@ -513,7 +515,7 @@ x = 1/2. * var
     \frametitle{Distributed Workflows: Dictator and Lieutenants}
 
     \begin{center}
-        \includegraphics[width=.7\textwidth]{figs/dictator-lieutenant-workflow.png}
+        \includegraphics[width=.7\textwidth]{figs/dictator-lieutenant-workflow.png}\cite{book}
     \end{center}
 
 }
@@ -573,20 +575,9 @@ x = 1/2. * var
 \frame
 {
 \small
-    \frametitle{Resources}
-    \begin{enumerate}
-        \item Git From the Bottom Up\\
-            \url{http://ftp.newartisans.com/pub/git.from.bottom.up.pdf}
-        \item User Manual\\
-            \url{http://git-scm.com/docs/user-manual.html}
-        \item Git Magic\\
-            \url{http://www-cs-students.stanford.edu/~blynn/gitmagic/}
-        \item Git Book\\
-            \url{http://git-scm.com/book}
-        \item Tech Talk: Linus Torvalds on git\\
-            \url{http://youtu.be/4XpnKHJAok8} 
-        \item Code School - Try Git\\
-            \url{http://try.github.io}
-    \end{enumerate}
+    \frametitle{References}
+    \renewcommand{\section}[2]{}
+    \bibliographystyle{plainnat}
+    \bibliography{git_slides}
 }
 \end{document}
