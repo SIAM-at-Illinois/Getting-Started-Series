@@ -120,7 +120,7 @@
 \end{column}
 \begin{column}{.5\textwidth}
     \begin{itemize}
-        \item \cw{HEAD}
+        \item HEAD
         \item Index (Staging area)
     \end{itemize}
 \end{column}
@@ -132,7 +132,7 @@
 
 \frame
 {
-    \frametitle{VCS Components (Example Tree)}
+    \frametitle{VCS Components (Example Graph)}
 
 	\begin{center}
 		\includegraphics[height=.8\textheight]{figs/complicated-dag.png}
@@ -379,13 +379,6 @@ index e69de29..257cc56 100644
 	\verb|$ git log --graph --pretty=oneline|
 \end{frame}
 
-\begin{frame}[fragile]
-    \frametitle{Log Formatting - Tree Example}
-	\begin{center}
-		\includegraphics[width=.8\textwidth, height=.8\textheight]{figs/tree-screenshot}
-	\end{center}
-\end{frame}
-
 \subsection{Branching/Remotes}
 \begin{frame}[fragile]
     \frametitle{Branching}
@@ -440,11 +433,10 @@ x = 1/2. * var
 \begin{frame}[fragile]
     \frametitle{Mergetool}
 
-    \verb|$ git merge <branch>|
+    \verb|$ git mergetool|
     \begin{itemize}
         \item Presents a visual interface to merging
-        \item Example: 
-		\item \verb|$ git mergetool --tool=meld|
+        \item Example: \verb|$ git mergetool --tool=meld|
     \end{itemize}
     \begin{center}
         \includegraphics[width=.9\textwidth]{figs/meld-screenshot}
@@ -488,8 +480,8 @@ x = 1/2. * var
         \item \verb|origin|: default name chosen for a remote when cloned
         \item \verb|<remote_name>/<branch_name>|
             \begin{itemize}
-                \item origin/master
-                \item upstream/fix-issue-105
+                \item \verb|origin/master|
+                \item \verb|upstream/fix-issue-105|
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -539,9 +531,9 @@ x = 1/2. * var
         \item Locate and fix bug
         \item Push fix
             \begin{itemize}
-                \item you may need to fetch and merge with \verb|origin/master|
-                \item username: gswg
-                \item password: siam2014
+                \item You may need to fetch and merge with \verb|origin/master|
+                \item Username: gswg
+                \item Password: siam2014
             \end{itemize}
     \end{itemize}
 \end{frame}
