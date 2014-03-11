@@ -97,11 +97,10 @@ ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]
     \item Windows: TeXworks, MiKTeX
     \item Helpful site: en.wikibooks.org/wiki/LaTeX/Installation
   \end{itemize}
-  \item Use \verb|latex| or \verb|pdflatex| command on a .tex file to produce output
+  \item Use \verb|latexmk| or \verb|pdflatex| or \verb|latex| command on a .tex file to produce output
   \begin{itemize}
-    \item \verb|pdflatex| is recommended, since it can include .pdf, .jpg, .png image formats
-      and outputs directly to .pdf
-    \item \verb|latex| uses PostScript format
+    \item \verb|latex| command is not recommended, since it cannot include .pdf, .jpg, .png image formats
+      and cannot output to .pdf
   \end{itemize}
   \item Can also compile online at sharelatex.com
   \end{itemize}
@@ -221,7 +220,10 @@ material. Now we will provide results.\end{verbatim}
       after \verb|pdflatex| is run
     \begin{itemize}
       \item May need to run \verb|pdflatex| twice for references to display correctly
-      \item Using the tool Latexmk can resolve this issue
+    \end{itemize}
+    \item Using the tool LaTeX-Mk can resolve this issue
+    \begin{itemize}
+      \item Use command \verb|latexmk -pdf <filename>.tex| to perform all operations needed to generate final pdf
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -554,6 +556,8 @@ A = \begin{pmatrix}
   \frametitle{If You Want to Know More \ldots}
   \begin{itemize}
     \item \emph{en.wikibooks.org/wiki/LaTeX/} : Excellent reference for \LaTeX{} in general
+    \item \emph{www.ctan.org} : CTAN stands for the Comprehensive \TeX{} Archive Network,
+      and contains many standard \LaTeX{} packages
   \end{itemize}
 }
 
