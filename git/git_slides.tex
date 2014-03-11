@@ -11,6 +11,12 @@
 	\end{beamercolorbox}
 	\end{centering}
 }
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
 \tcbuselibrary{listings}
 \useoutertheme{split}
 \useinnertheme{rectangles}
@@ -108,14 +114,18 @@
     \begin{itemize}
         \item Tags
         \item Branches
+    \end{itemize}
+\end{column}
+\begin{column}{.5\textwidth}
+    \begin{itemize}
         \item \cw{HEAD}
         \item Index (Staging area)
     \end{itemize}
 \end{column}
-\begin{column}{.5\textwidth}
-    \includegraphics[width=\textwidth]{figs/references.png}
-\end{column}
 \end{columns}
+\begin{center}
+    \includegraphics[width=\textwidth]{figs/visual-git.png}
+\end{center}
 }
 
 \section{Operations}
@@ -434,6 +444,22 @@ x = 1/2. * var
     \verb|$ git pull [<remote>] [<branch>]|
     \begin{itemize}
         \item Short for a fetch followed by a merge
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Git Naming--Disambiguation}
+    Git creates branches automatically in certain cases.
+    \begin{itemize}
+        \item \verb|HEAD|: special reference that identifies the current branch
+        \item \verb|master|: Default branch created when a repository is first 
+            initialized
+        \item \verb|origin|: default name chosen for a remote when cloned
+        \item \verb|<remote_name>/<branch_name>|
+            \begin{itemize}
+                \item origin/master
+                \item upstream/fix-issue-105
+            \end{itemize}
     \end{itemize}
 \end{frame}
 
