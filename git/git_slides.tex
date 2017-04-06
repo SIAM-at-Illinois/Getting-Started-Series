@@ -52,7 +52,7 @@
     \end{column}
     \begin{column}{.5\textwidth}
         \begin{center}
-            \includegraphics[width=.7\textwidth]{figs/git-logo.png} 
+            \includegraphics[width=.7\textwidth]{figs/git-logo.png}
         \end{center}
     \end{column}
     \end{columns}
@@ -194,7 +194,7 @@
 \subsection{Creating/Updating}
 \begin{frame}[fragile]
     \frametitle{Bootstrapping}
-    
+
     \verb|$ git init|
     \begin{itemize}
         \item creates .git directory and initializes the repository
@@ -235,7 +235,7 @@ $
         \item Adds contents of \verb|<path>| to index
         \item \verb|$ git add .|
     \end{itemize}
-    
+
     \verb|$ git rm <file>|
     \begin{itemize}
         \item Removes files from working tree and index
@@ -269,7 +269,7 @@ nothing added to commit but untracked files present (use "git add" to track)
     \frametitle{Adding our First File}
     \begin{tcblisting}{listing only}
 $ git add name_file.txt
-$ git status 
+$ git status
 On branch master
 
 Initial commit
@@ -409,7 +409,7 @@ $ git commit -m 'Add ignore file'
     \frametitle{Spotting Changes}
     \begin{tcblisting}{listing only}
 $ echo 'I like git' >> name_file.txt
-$ git add name_file.txt 
+$ git add name_file.txt
 $ echo 'Hello, world!' >> name_file.txt
 $ git status
 On branch master
@@ -501,7 +501,7 @@ index c987f6b..d5e2134 100644
     \frametitle{Erasing Unstaged Changes}
     \begin{tcblisting}{listing only}
 $ git checkout name_file.txt
-$ cat name_file.txt 
+$ cat name_file.txt
 Hi, my name is Nathan
 I like git
     \end{tcblisting}
@@ -539,7 +539,7 @@ $ git reset name_file.txt
 Unstaged changes after reset:
 M	name_file.txt
 $ git checkout name_file.txt
-$ cat name_file.txt 
+$ cat name_file.txt
 Hi, my name is Nathan
     \end{tcblisting}
 \end{frame}
@@ -665,7 +665,7 @@ index c987f6b..d5e2134 100644
 \begin{frame}[fragile]
     \frametitle{Using History}
     \begin{tcblisting}{listing only}
-$ git show HEAD~1:name_file.txt 
+$ git show HEAD~1:name_file.txt
 Hi, my name is Nathan
 $ git checkout HEAD~1 -- name_file.txt
     \end{tcblisting}
@@ -817,7 +817,7 @@ x = 1/2. * var
     Git creates branches automatically in certain cases.
     \begin{itemize}
         \item \verb|HEAD|: special reference that identifies the current branch
-        \item \verb|master|: Default branch created when a repository is first 
+        \item \verb|master|: Default branch created when a repository is first
             initialized
         \item \verb|origin|: default name chosen for a remote when cloned
         \item \verb|<remote_name>/<branch_name>|
@@ -862,22 +862,6 @@ x = 1/2. * var
 	\begin{center}
 		\includegraphics[width=.8\textwidth]{figs/push-fred}
 	\end{center}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Challenge Problem}
-
-    Shape module at \verb|https://github.com/gswg/example.git|
-    \begin{itemize}
-        \item Clone repository
-        \item Locate and fix bug
-        \item Push fix
-            \begin{itemize}
-                \item You may need to fetch and merge with \verb|origin/master|
-                \item Username: gswg
-                \item Password: siam2014
-            \end{itemize}
-    \end{itemize}
 \end{frame}
 
 \frame
@@ -952,9 +936,9 @@ x = 1/2. * var
     \begin{itemize}
         \item Powerful web interface for publishing Git repositories
         \item Simple to view changes and track progress on repositories
-        \item Wiki and bug tracking built into each repository 
+        \item Wiki and bug tracking built into each repository
     \end{itemize}
-    
+
     \begin{center}
         \includegraphics[width=.8\textwidth]{figs/github-logo.png}
     \end{center}
@@ -968,11 +952,27 @@ x = 1/2. * var
         \item Similar to GitHub
         \item Allows private repositories for students
     \end{itemize}
-    
+
     \begin{center}
         \includegraphics[width=.8\textwidth]{figs/bitbucket-logo.png}
     \end{center}
 }
+
+\begin{frame}[fragile]
+    \frametitle{Interactive}
+
+    Shape module at \verb|https://github.com/gswg/example.git|
+    \begin{itemize}
+        \item Clone repository
+        \item Locate and fix bug
+        \item Push fix
+            \begin{itemize}
+                \item You may need to fetch and merge with \verb|origin/master|
+                \item Username: gswg
+                \item Password: siam2014
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 \frame
 {
