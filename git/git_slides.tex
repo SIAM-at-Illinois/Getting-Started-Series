@@ -1,5 +1,3 @@
-% TODO Fix date
-% TODO Update sections/subsections
 \documentclass[english,compress]{beamer}
 
 \usepackage[square,numbers]{natbib}
@@ -141,8 +139,6 @@
 	\end{center}
 }
 
-% TODO Why is checkout in Bootstrap section?
-% TODO Where is reset?
 \section{Operations}
 \frame
 {
@@ -153,7 +149,6 @@
             \begin{itemize}
                 \item \cw{init}
                 \item \cw{clone}
-                \item \cw{checkout}
             \end{itemize}
         Modify
         \begin{itemize}
@@ -161,7 +156,7 @@
 			\item rename (\cw{mv})
             \item \cw{commit}
         \end{itemize}
-         Information
+         Monitor Changes
         \begin{itemize}
             \item \cw{status}
             \item \cw{diff}
@@ -169,12 +164,18 @@
         \end{itemize}
    \end{column}
     \begin{column}{.5\textwidth}
-        Reference
+        Undo
+        \begin{itemize}
+            \item \cw{checkout}
+            \item \cw{reset}
+        \end{itemize}
+        Branch
         \begin{itemize}
             \item \cw{tag}
             \item \cw{branch}
+            \item \cw{merge}
         \end{itemize}
-        Sharing work, backing it up
+        Share and Back Up
 \begin{itemize}
     \item \cw{pull}, \cw{fetch}
     \item \cw{push}
@@ -378,7 +379,7 @@ $ git commit -m 'Add ignore file'
     \end{tcblisting}
 \end{frame}
 
-\subsection{Getting Information}
+\subsection{Inspecting}
 \begin{frame}[fragile]
     \frametitle{Inspection}
 
@@ -477,6 +478,7 @@ index c987f6b..d5e2134 100644
     \end{center}
 }
 
+\subsection{Undoing}
 \begin{frame}[fragile]
     \frametitle{Undoing Changes to Working Directory}
 
@@ -529,7 +531,7 @@ I like git
     to undo changes to working directory.
 
     The \verb|reset| command, like \verb|checkout|, has other uses related
-    to branches.
+    to branches, but we will not cover these.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -544,6 +546,7 @@ Hi, my name is Andrew
     \end{tcblisting}
 \end{frame}
 
+\subsection{Reviewing}
 \begin{frame}[fragile]
     \frametitle{Viewing History}
 
@@ -672,6 +675,15 @@ $ git checkout HEAD~1 -- name_file.txt
 \end{frame}
 
 \subsection{Branching}
+\frame
+{
+    \frametitle{Three Branches}
+
+	\begin{center}
+		\includegraphics[height=.8\textheight]{figs/complicated-dag.png}
+	\end{center}
+}
+
 \begin{frame}[fragile]
     \frametitle{Branching}
 
@@ -702,25 +714,182 @@ $ git checkout HEAD~1 -- name_file.txt
 \end{frame}
 
 \begin{frame}[fragile]
+    \frametitle{Branch Example}
+    \begin{tcblisting}{listing only}
+$ echo 'var = 3' > math_file.py
+$ git add math_file.py 
+$ git commit -m 'Start programming'
+[master af23d01] Start programming
+ 1 file changed, 1 insertion(+)
+ create mode 100644 math_file.py
+    \end{tcblisting}
+\end{frame}
+
+\frame
+{
+    \frametitle{Before Branch}
+
+	\begin{center}
+		\includegraphics[height=.8\textheight]{figs/1-before-branch.png}
+	\end{center}
+}
+
+\begin{frame}[fragile]
+    \frametitle{Branch Example}
+    \begin{tcblisting}{listing only}
+$ rm *.out todo_list.txt
+$ touch file1 file2 file3
+$ git branch math
+$ git checkout math
+Switched to branch 'math'
+$ git add .
+$ git commit -m 'Add more files'
+[math db71718] Add more files
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file1
+ create mode 100644 file2
+ create mode 100644 file3
+    \end{tcblisting}
+\end{frame}
+
+\frame
+{
+    \frametitle{First Branch Commit}
+
+	\begin{center}
+		\includegraphics[height=.8\textheight]{figs/2-first-branch.png}
+	\end{center}
+}
+
+\begin{frame}[fragile]
+    \frametitle{Branch Example}
+    \begin{tcblisting}{listing only}
+$ ls
+file1  file2  file3  math_file.py  name_file.txt
+$ git checkout master
+Switched to branch 'master'
+$ ls
+math_file.py  name_file.txt
+    \end{tcblisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Branch Example}
+    \begin{tcblisting}{listing only}
+$ echo 'x = 0.5 * var' >> math_file.py 
+$ git commit -am 'Make change to master branch'
+[master 7864aac] Make change to master branch
+ 1 file changed, 1 insertion(+)
+$ git checkout math
+Switched to branch 'math'
+$ cat math_file.py 
+var = 3
+    \end{tcblisting}
+\end{frame}
+
+\frame
+{
+    \frametitle{Master Branch Commit}
+
+	\begin{center}
+		\includegraphics[height=.8\textheight]{figs/3-master-commit.png}
+	\end{center}
+}
+
+\begin{frame}[fragile]
+    \frametitle{Branch Example}
+    \begin{tcblisting}{listing only}
+$ cat math_file.py 
+var = 3
+$ echo ' x = 1/2. * var' >> math_file.py 
+$ git commit -am 'Make conflicting change to math branch'
+[math 6a015d3] Make conflicting change to math branch
+ 1 file changed, 1 insertion(+)
+    \end{tcblisting}
+\end{frame}
+
+\frame
+{
+    \frametitle{Another Math Commit}
+
+	\begin{center}
+		\includegraphics[height=.8\textheight]{figs/4-branch-commit.png}
+	\end{center}
+}
+
+\begin{frame}[fragile]
     \frametitle{Merging}
 
     \verb|$ git merge <branch>|
     \begin{itemize}
-        \item Incorporates changes from the specified branch into the current
-            branch.
+        \item Incorporate changes from specified branch into current
+            branch
         \item Conflicts may result
         \item Any conflicts must be resolved before merge is completed
     \end{itemize}
+\end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Merge Example}
     \begin{tcblisting}{listing only}
+$ git checkout master
+Switched to branch 'master'
+$ git merge math
+Auto-merging math_file.py
+CONFLICT (content): Merge conflict in math_file.py
+Automatic merge failed; fix conflicts and then commit the result.
+$ cat math_file.py 
 var = 3
 <<<<<<< HEAD
 x = 0.5 * var
 =======
-x = 1/2. * var
->>>>>>> origin/master
+ x = 1/2. * var
+>>>>>>> math
     \end{tcblisting}
 \end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Merge Example}
+    \begin{tcblisting}{listing only}
+... fix changes
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+
+	new file:   file1
+	new file:   file2
+	new file:   file3
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+	both modified:   math_file.py
+    \end{tcblisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Merge Example}
+    \begin{tcblisting}{listing only}
+$ git add math_file.py
+$ git commit
+[master 211a76d] Merge branch 'math'
+$ ls
+file1  file2  file3  math_file.py  name_file.txt
+    \end{tcblisting}
+\end{frame}
+
+\frame
+{
+    \frametitle{After Merge}
+
+	\begin{center}
+		\includegraphics[height=.8\textheight]{figs/5-after-merge.png}
+	\end{center}
+}
 
 \begin{frame}[fragile]
     \frametitle{Mergetool}
@@ -736,6 +905,7 @@ x = 1/2. * var
 
 \end{frame}
 
+\subsection{Other Commands}
 \begin{frame}[fragile]
     \frametitle{Changing Settings}
 
@@ -783,9 +953,14 @@ x = 1/2. * var
 
 \end{frame}
 
-% TODO introduce push
-
 \section{Sharing}
+\begin{frame}[fragile]
+    \frametitle{Remotes Repository}
+	\begin{center}
+		\includegraphics[width=.8\textwidth]{figs/single-remote}
+	\end{center}
+\end{frame}
+
 \begin{frame}[fragile]
     \frametitle{Remotes}
 
@@ -794,21 +969,32 @@ x = 1/2. * var
         \item Adds a remote named \verb|<name>| for the repository at \verb|<url>|
     \end{itemize}
 
+    \verb|$ git branch -r |
+    \begin{itemize}
+        \item List remote branches
+        \item Use \verb|$ git merge| to merge these branches
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Remotes (2)}
+
     \verb|$ git fetch <remote>|
     \begin{itemize}
         \item Fetches updates from specified remote
         \item \verb|$ git fetch --all|
     \end{itemize}
 
-    \verb|$ git branch -r |
-    \begin{itemize}
-        \item List remote branches
-        \item Use \verb|$ git merge| to merge these branches
-    \end{itemize}
-
     \verb|$ git pull [<remote>] [<branch>]|
     \begin{itemize}
         \item Short for a fetch followed by a merge
+    \end{itemize}
+
+    \verb|$ git push [<remote>] [<branch>]|
+    \begin{itemize}
+        \item Send updates to remote
+        \item Similar to running \verb|pull| on remote machine
+        \item No conflicts allowed
     \end{itemize}
 \end{frame}
 
