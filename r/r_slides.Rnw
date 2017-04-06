@@ -30,6 +30,12 @@ options(warn = 2, width = 60, continue = " ")
 
 \frame{\titlepage}
 
+\begin{frame}{Getting Ready}
+  \Huge
+  \centering
+  \url{www.compileonline.com/execute_r_online.php}
+\end{frame}
+
 % \section{Example: Comparing Two Implementations}
 % - (2) quick example
 
@@ -382,9 +388,9 @@ abline(a = cs[1], b = cs[2])
 
 \begin{frame}[fragile]{Exercise: Plotting Heart Muscle Experiment}
   \begin{itemize}
-    \item Load the rat heart muscle experiment data: \texttt{data(muscle)}
-    \item Plot \texttt{Conc} versus \texttt{Length}
-    \item What is the distribution of the \texttt{Length} variable? (Hint: try plotting the results of \texttt{density} function)
+    \item Load the rat heart muscle experiment data: \texttt{data(muscle, package = 'MASS')}
+    \item Plot \texttt{Conc} ($x$) versus \texttt{Length} ($y$)
+    \item What is the distribution of the \texttt{Length} variable? (Hint: try plotting the results of \texttt{density} function; use \texttt{muscle\$Length} to access the data)
   \end{itemize}
 \end{frame}
 
@@ -394,7 +400,7 @@ data(muscle)
 @ 
 <<musclePlot, fig=TRUE, echo = FALSE, height = 5, width = 8>>=
 cols <- rainbow(nlevels(muscle$Strip))
-plot(Conc ~ Length, data = muscle,
+plot(Length ~ Conc, data = muscle,
      col = cols[muscle$Strip])
 @
 <<>>=
@@ -496,7 +502,7 @@ c(1, 2, 3) + c(4, 5, 6)
 \begin{frame}{Interfacing R with Other Languages}
   \begin{itemize}
     \item \R is largely built on C and Fortran and interfacing is pretty straight forward.
-    \item \texttt{Rcpp} and \texttt{inline} packages make it even easier (including compiling writing C++ as a string)
+    \item \texttt{Rcpp} and \texttt{inline} packages make it even easier (including compiling C++ as a string witin R)
     \item \texttt{RInside} is a package to allow calling \R from C++
     \item \texttt{RPy2}, \texttt{RJava}, \texttt{RinRuby}, \texttt{statistics::R}, probably others
     \item \texttt{foreign} library can read many formats
@@ -527,6 +533,7 @@ c(1, 2, 3) + c(4, 5, 6)
     \item Mailing lists: r-help, r-devel
     \item \url{stackoverflow.com} and \url{stats.stackexchange.com}
     \item \url{r-bloggers.com}
+    \item \url{tryr.codeschool.com}
   \end{itemize}
 \end{frame}
 

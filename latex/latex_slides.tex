@@ -82,6 +82,7 @@ ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]
     \item Offers precise control over how document looks
     \item Excellent for typesetting mathematics
     \item Automated references, citations, etc.
+    \item Used for papers, r\'esum\'es, presentation slides, etc.
     \item Widely used for academic journals
     \item Free
     \item Multi-platform
@@ -153,7 +154,8 @@ ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]
 \begin{frame}[fragile]
   \frametitle{Example Document}
   \begin{itemize}
-    \item \LaTeX{} document will have information like title and date in top matter
+    \item \LaTeX{} document will have information like package imports, title and date 
+    in preamble and top matter
     \item Contents of document belong in document environment
   \end{itemize}
   \begin{verbatim}\documentclass[11pt]{article}
@@ -224,7 +226,7 @@ material. Now we will provide results.\end{verbatim}
     \end{itemize}
     \item Using the tool LaTeX-Mk can resolve this issue
     \begin{itemize}
-      \item Use command \verb|latexmk -pdf <filename>.tex| to perform all operations needed to generate final pdf
+      \item Use command \verb|latexmk -pdf example.tex| to perform all operations needed to generate final pdf
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -528,7 +530,7 @@ A = \begin{pmatrix}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
         \begin{vmatrix}a & b \\ c & d\end{vmatrix} & = ad - bc \\
-        \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
+        \hat{x}_i & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
       \end{align*}
     \item Be sure to include \verb|\usepackage{amsmath}|
     \item Helpful sites:
@@ -545,13 +547,13 @@ A = \begin{pmatrix}
     \item Produce the following equations in \LaTeX{}:
       \begin{align*}
         \begin{vmatrix}a & b \\ c & d\end{vmatrix} & = ad - bc \\
-        \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
+        \hat{x}_i & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
       \end{align*}
     \item Solution:
   \end{itemize}
   {\small \begin{verbatim}\begin{align*}
   \begin{vmatrix} a & b \\ c & d \end{vmatrix} & = ad - bc \\
-  \hat{x_i} & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
+  \hat{x}_i & = x_i \left(\sum_{j=0}^\infty x_j \right)^{-1}
 \end{align*}\end{verbatim}}
 \end{frame}
 
@@ -559,10 +561,14 @@ A = \begin{pmatrix}
   \frametitle{If You Want to Know More \ldots}
   \begin{itemize}
     \item \emph{en.wikibooks.org/wiki/LaTeX/} \\ Excellent reference for \LaTeX{} in general
-    \item \emph{ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf} \\
-      Useful summary of features for writing mathematics
+    \begin{itemize}
+    \item \emph{en.wikibooks.org/wiki/LaTeX/Macros} \\ Reference for defining your own
+      macros in \LaTeX{}
     \item \emph{en.wikibooks.org/wiki/LaTeX/Presentations} \\ Reference for making \LaTeX{}
       presentations using Beamer package
+    \end{itemize}
+    \item \emph{ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf} \\
+      Useful summary of features for writing mathematics
     \item \emph{www.ctan.org} \\ CTAN stands for the Comprehensive \TeX{} Archive Network,
       and contains many standard \LaTeX{} packages
   \end{itemize}
